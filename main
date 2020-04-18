@@ -4,18 +4,18 @@ source dependencies
 source extract-disk
 source deploy-apps
 
-# Pre configurações para Ambiente chroot
-echo "clonando resolv, apt e wget"
+# Initials settings for chroot environment
+echo "cloning resolv, apt and wget"
 sudo cp /etc/resolv.conf disk/etc/
 sudo cp /etc/apt/apt.conf disk/etc/apt/
 sudo cp ~/.wgetrc disk/root/.wgetrc
 
-echo "Montando dispositivos"
+echo "Mounting devices"
 sudo mount --bind /dev/ disk/dev
 
 lxterminal --command="/bin/bash -c 'watch -n2 cat disk/tmp/aptlog; /bin/bash'"
 
-### ENTRANDO NO AMBIENTE CHROOT
+### ENTERING IN CHROOT ENVIRONMENT
 
 echo "Entering the belly of the beast..."
 cat chroot-env | sudo chroot disk
@@ -27,6 +27,6 @@ done
 sudo umount disk/dev
 sudo umount -lf disk/dev
 
-### SAIU DO AMBIENTE CHROOT
+### OUT OF CHROOT ENVIRONMENT
 
 source pack-disk

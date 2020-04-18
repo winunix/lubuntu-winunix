@@ -3,7 +3,7 @@
 devDependency () {
 	STAT="`dpkg-query -W -f='${status}' $1`"
 	if [ "$STAT" != "install ok installed" ]; then
-		sudo apt install $1 >/dev/null 2>&1
+		sudo apt install $1
 	fi
 }
 
@@ -11,6 +11,8 @@ getFileSize () {
 	if [ ! -f $1 ]; then echo 0; return; fi
 	stat --printf="%s" $1
 }
+
+echo "installing dev dependencies"
 
 devDependency "wget"
 devDependency "zenity"

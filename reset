@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo rm -rf disk/ cache/extract-cd/
+
+if [ "$1" == "--all" ]; then
+	rm -rf libs/
+	rm -rf cache/
+	rm -rf winunix-20-*
+fi
