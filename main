@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source dependencies
+source extract-disk
+source deploy-apps
+
+# Pre configurações para Ambiente chroot
+echo "clonando resolv, apt e wget"
+sudo cp /etc/resolv.conf disk/etc/
+sudo cp /etc/apt/apt.conf disk/etc/apt/
+sudo cp ~/.wgetrc disk/root/.wgetrc
+
+echo "Montando dispositivos"
+sudo mount --bind /dev/ disk/dev
+
+lxterminal --command="/bin/bash -c 'watch -n2 cat disk/tmp/aptlog; /bin/bash'"
+
+### ENTRANDO NO AMBIENTE CHROOT
+
+echo "Entering the belly of the beast..."
+cat chroot-env | sudo chroot disk
+while [ ! -z "$(ls -A disk/proc)" ] || [ ! -z "$(ls -A disk/sys)" ] || [ ! -z "$(ls -A disk/dev/pts)" ]; do
+	touch DONTUNMOUNT
+	cat chroot-env | sudo chroot disk
+done
+
+sudo umount disk/dev
+sudo umount -lf disk/dev
+
+### SAIU DO AMBIENTE CHROOT
+
+source pack-disk

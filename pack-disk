@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "Gerar um novo arquivo manifest"
+sudo chmod +w cache/extract-cd/casper/filesystem.manifest
+sudo chroot disk dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee cache/extract-cd/casper/filesystem.manifest >/dev/null 2>&1
+sudo cp cache/extract-cd/casper/filesystem.manifest cache/extract-cd/casper/filesystem.manifest-desktop
+sudo sed -i '/ubiquity/d' cache/extract-cd/casper/filesystem.manifest-desktop
+sudo sed -i '/casper/d' cache/extract-cd/casper/filesystem.manifest-desktop
+
+echo "Comprimindo os arquivos manifest"
+sudo mksquashfs disk cache/extract-cd/casper/filesystem.squashfs -b 1048576
+
+echo "Atualizar o arquivo filesystem.size, usado no instalador"
+printf $(sudo du -sx --block-size=1 disk | cut -f1) | sudo tee cache/extract-cd/casper/filesystem.size
+
+echo "Remover o antigo md5sum.txt e calcular um novo"
+cd cache/extract-cd/
+sudo rm md5sum.txt
+find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo tee md5sum.txt
+
+ISO_NAME="winunix-20-"`date +"%m.%d.%H.%M"`
+sudo xorriso -file_size_limit off
+# -compliance iso_9660_level=3
+sudo xorriso -as mkisofs -iso-level 3 -isohybrid-mbr isolinux/isohdpfx.bin -c isolinux/boot.cat -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot -isohybrid-gpt-basdat -o ../$ISO_NAME.iso .

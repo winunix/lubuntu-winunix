@@ -1,0 +1,8 @@
+#!/bin/bash
+
+hasPartner=$(grep "apt-setup/partner" cache/extract-cd/preseed/lubuntu.seed)
+if [ "$hasPartner" == "" ]; then
+	sudo sed -i '5i\# Enable archive.canonical.com.'  cache/extract-cd/preseed/lubuntu.seed
+	sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
+fi
+

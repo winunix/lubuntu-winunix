@@ -1,0 +1,33 @@
+#!/bin/bash
+
+mkdir cache -p
+ISOPATH="cache/lubuntu20-desk.iso"
+if [ ! "$(getFileSize $ISOPATH)" -gt "0" ]; then
+	ISO=`zenity --file-selection --title="Selecione a ISO" 2>/dev/null`
+	echo "Copiando $ISO..."
+	rsync --info=progress2 "$ISO" "$ISOPATH"
+fi
+
+if [ ! -d disk/ ] || [ ! -d cache/extract-cd/ ]; then
+    echo "Montando a .iso no diretorio 'mnt'."
+	mkdir mnt -p
+	sudo mount -o loop $ISOPATH mnt >/dev/null 2>&1
+
+    if [ ! -d disk/ ]; then
+		echo "Extrair arquivos do sistema"
+		sudo unsquashfs mnt/casper/filesystem.squashfs
+		sudo mv squashfs-root disk
+	fi
+
+    if [ ! -d cache/extract-cd/ ]; then
+		echo "Extraindo arquivos da .iso no diretorio extract-cd"
+		mkdir cache/extract-cd/ -p
+		sudo rsync --exclude=/casper/filesystem.squashfs -a mnt/ cache/extract-cd/ >/dev/null 2>&1
+
+		echo "Extrair o isohybrid MBR isohdpfx.bin da ISO usando o dd"
+		sudo dd if=$ISOPATH bs=512 count=1 of=cache/extract-cd/isolinux/isohdpfx.bin >/dev/null 2>&1
+	fi
+
+    sudo umount mnt
+	rmdir mnt
+fi
