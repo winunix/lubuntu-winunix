@@ -1,0 +1,86 @@
+#!/bin/bash
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devpts none /dev/pts
+
+echo "Inside the belly of the beast..."
+echo "Evitando problemas de linguagens em chaves GPG"
+export HOME=/root
+export LC_ALL=C
+dbus-uuidgen > /var/lib/dbus/machine-id
+dpkg-divert --local --rename --add /sbin/initctl
+ln -s /bin/true /sbin/initctl
+
+# Customizações
+HASPROXY=$(cat /etc/apt/apt.conf | grep "Acquire::http::proxy" | wc -l)
+if [ "$HASPROXY" == "1" ]; then
+	HTTPPROXY=$(cat /etc/apt/apt.conf | grep "Acquire::http::proxy" | awk '{split($0,a,"\""); print a[2]}')
+	HTTPSROXY=$(cat /etc/apt/apt.conf | grep "Acquire::https::proxy" | awk '{split($0,a,"\""); print a[2]}')
+	export http_proxy=${HTTPROXY%?};
+	export https_proxy=${HTTPSROXY%?};
+fi
+
+## Fuso horario
+ln -sf /usr/share/zoneinfo/America/Fortaleza /etc/localtime
+
+## Linguagem
+locale-gen pt_BR.UTF-8
+update-locale LANG=\"pt_BR.UTF-8\" LANGUAGE=\"pt_BR:\"
+
+## Evitando problemas de internet
+STAT=`grep '#dns=dnsmasq' /etc/NetworkManager/NetworkManager.conf`
+if [ "$STAT" == "" ]; then
+	sed -i 's/dns=dnsmasq/#dns=dnsmasq/g' /etc/NetworkManager/NetworkManager.conf
+	service network-manager restart
+	sleep 5
+fi
+
+## Remove apps
+aptRemove () {
+	apt remove --purge $1 -y  2>&1 >/tmp/aptlog
+}
+
+aptRemove "kcalc"
+aptRemove "qlipper"
+aptRemove "noblenote"
+aptRemove "trojita"
+aptRemove "screengrab"
+
+## Atualizar repositorios
+dpkg --add-architecture i386
+apt-get update >/tmp/aptlog
+
+## upgrade do sistema
+apt-mark hold grub-*
+apt-get upgrade -y
+apt-mark unhold grub-*
+
+apt-get autoremove -y
+apt-get autoclean -y
+
+## Limpando o ambiente chroot
+rm -rf ~/.bash_history /tmp/*
+rm /var/lib/dbus/machine-id
+rm /sbin/initctl
+rm /root/.wgetrc
+rm -rf /root/.config
+rm -rf /root/.mozilla
+dpkg-divert --rename --remove /sbin/initctl
+
+## Desmontando arquivos especiais e saindo do chroot
+while [ ! -z "$(ls -A /proc)" ]; do
+	umount /proc
+	umount -lf /proc
+	sleep 1
+done
+while [ ! -z "$(ls -A /sys)" ]; do
+	umount /sys
+	umount -lf /sys
+	sleep 1
+done
+while [ ! -z "$(ls -A /dev/pts)" ]; do
+	umount /dev/pts
+	umount -lf /dev/pts
+	sleep 1
+done
