@@ -22,6 +22,13 @@ if [ "$HASPROXY" == "1" ]; then
 	export https_proxy=${HTTPSROXY%?};
 fi
 
+## Timezone
+ln -sf /usr/share/zoneinfo/America/Fortaleza /etc/localtime
+
+## Set Language
+locale-gen pt_BR.UTF-8
+update-locale LANG=\"pt_BR.UTF-8\" LANGUAGE=\"pt_BR:\"
+
 ## Avoid problems with internet
 STAT=`grep '#dns=dnsmasq' /etc/NetworkManager/NetworkManager.conf`
 if [ "$STAT" == "" ]; then
@@ -45,8 +52,13 @@ aptRemove "2048-qt"
 
 rm -rf /usr/share/applications/info.desktop
 
-## Refreshing repositories
+## Adding Repositories
 dpkg --add-architecture i386
+
+### WinuniX focal repository
+wget -qO - https://ailtonbsj.github.io/debian/public.key | sudo apt-key add -
+sudo add-apt-repository 'deb https://ailtonbsj.github.io/debian focal main'
+
 apt-get update >/tmp/aptlog
 
 ## upgrade of system
@@ -58,6 +70,10 @@ apt-mark unhold grub-*
 aptInstall () {
 	apt install $1 -y 2>&1 >/tmp/aptlog
 }
+
+### TTF MS Core Fonts
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+aptInstall "ttf-mscorefonts-installer"
 
 ### Language
 aptInstall "language-pack-pt"
@@ -74,12 +90,12 @@ aptInstall "wbrazilian"
 aptInstall "language-pack-gnome-br*"
 aptInstall "language-pack-br*"
 
-### Set Language
-locale-gen pt_BR.UTF-8
-update-locale LANG=\"pt_BR.UTF-8\" LANGUAGE=\"pt_BR:\"
-
-### Timezone
-ln -sf /usr/share/zoneinfo/America/Fortaleza /etc/localtime
+### Appearance
+aptInstall "qt5-style-plugin-gtk2"
+aptInstall "lubuntu-win10-theme"
+aptInstall "lubuntu-win8-cursor-theme"
+aptInstall "lubuntu-win10-icon-theme"
+aptInstall "lubuntu-win10-qt-theme"
 
 ### utils
 aptInstall "galculator"

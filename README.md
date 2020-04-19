@@ -35,3 +35,8 @@ lubuntu-winunix/
 ├── modules/        <-- Bibliotecas e Apps do projeto
 └── libs/           <-- Bibliotecas de terceiros (não versionado!)
 ```
+
+## Credits
+
+- Thanks to b00merang project for themes and icons.
+- Thanks to Rener(slipttees) for first script (2016) to build remasters.
