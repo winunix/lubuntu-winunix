@@ -56,8 +56,8 @@ rm -rf /usr/share/applications/info.desktop
 dpkg --add-architecture i386
 
 ### WinuniX focal repository
-wget -qO - https://ailtonbsj.github.io/debian/public.key | sudo apt-key add -
-sudo add-apt-repository 'deb https://ailtonbsj.github.io/debian focal main'
+wget -qO - https://winunix.github.io/debian/public.key | sudo apt-key add -
+sudo add-apt-repository 'deb https://winunix.github.io/debian focal main'
 
 apt-get update >/tmp/aptlog
 
