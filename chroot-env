@@ -48,6 +48,7 @@ aptRemove "noblenote"
 aptRemove "trojita"
 aptRemove "quassel"
 aptRemove "2048-qt"
+aptRemove "ark"
 # aptRemove "screengrab"
 
 rm -rf /usr/share/applications/info.desktop
@@ -96,8 +97,10 @@ aptInstall "lubuntu-win10-theme"
 aptInstall "lubuntu-win8-cursor-theme"
 aptInstall "lubuntu-win10-icon-theme"
 aptInstall "lubuntu-win10-qt-theme"
+aptInstall "lubuntu-win-theme-apply"
 
 ### utils
+aptInstall "file-roller"
 aptInstall "galculator"
 aptInstall "xpad"
 aptInstall "gnome-screenshot"
