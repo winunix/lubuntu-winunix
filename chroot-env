@@ -50,7 +50,6 @@ aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "ark"
 # aptRemove "screengrab"
-
 rm -rf /usr/share/applications/info.desktop
 
 ## Adding Repositories
@@ -59,6 +58,10 @@ dpkg --add-architecture i386
 ### WinuniX focal repository
 wget -qO - https://winunix.github.io/debian/public.key | sudo apt-key add -
 sudo add-apt-repository 'deb https://winunix.github.io/debian focal main'
+
+### Chrome stable repository
+wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo add-apt-repository 'deb http://dl.google.com/linux/chrome/deb/ stable main'
 
 apt-get update >/tmp/aptlog
 
@@ -69,7 +72,12 @@ apt-mark unhold grub-*
 
 ## Install apps
 aptInstall () {
-	apt install $1 -y 2>&1 >/tmp/aptlog
+	sudo DEBIAN_FRONTEND=noninteractive apt install $1 -y 2>&1 >/tmp/aptlog
+}
+
+## Reconfigure apps
+dpkgReconf () {
+	sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure $1 2>&1 >/tmp/aptlog
 }
 
 ### TTF MS Core Fonts
@@ -78,18 +86,26 @@ aptInstall "ttf-mscorefonts-installer"
 
 ### Language
 aptInstall "language-pack-pt"
+aptInstall "language-pack-br"
+aptInstall "language-pack-pt-base"
+aptInstall "language-pack-br-base"
 aptInstall "language-pack-gnome-pt"
+aptInstall "language-pack-gnome-br"
+aptInstall "language-pack-gnome-pt-base"
+aptInstall "language-pack-gnome-br-base"
+aptInstall "language-pack-kde-pt"
+aptInstall "kde-l10n-pt"
+aptInstall "kde-l10n-ptbr"
 aptInstall "hyphen-pt-pt"
 aptInstall "hyphen-pt-br"
 aptInstall "hunspell-br"
 aptInstall "hunspell-pt-pt"
 aptInstall "myspell-pt-br"
 aptInstall "mythes-pt-pt"
-aptInstall "kde-l10n-ptbr"
 aptInstall "wportuguese"
 aptInstall "wbrazilian"
-aptInstall "language-pack-gnome-br*"
-aptInstall "language-pack-br*"
+
+sudo dpkg-reconfigure locales
 
 ### Appearance
 aptInstall "qt5-style-plugin-gtk2"
@@ -98,6 +114,7 @@ aptInstall "lubuntu-win8-cursor-theme"
 aptInstall "lubuntu-win10-icon-theme"
 aptInstall "lubuntu-win10-qt-theme"
 aptInstall "lubuntu-win-theme-apply"
+aptInstall "sddm-theme-win10"
 
 ### utils
 aptInstall "file-roller"
@@ -110,6 +127,11 @@ aptInstall "pdfshuffler"
 aptInstall "gnome-paint"
 aptInstall "audacious"
 aptInstall "cheese"
+
+aptInstall "google-chrome-stable"
+aptInstall "libdvd-pkg"
+dpkgReconf "libdvd-pkg"
+
 
 ## Apport
 sed -i 's/enabled=1/enabled=0/g' /etc/default/apport

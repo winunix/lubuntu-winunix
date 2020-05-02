@@ -38,5 +38,12 @@ lubuntu-winunix/
 
 ## Credits
 
-- Thanks to b00merang project for themes and icons.
-- Thanks to Rener(slipttees) for first script (2016) to build remasters.
+- *Qt Style* : Thanks to Debian Qt/KDE Maintainers of package `qt5-style-plugin-gtk2` on universe repository.
+- *GTK 2/3 Theme* : Thanks to [B00merang Project](https://b00merang.weebly.com/windows-10.html) for Modern flat [theme based on Win10](https://github.com/winunix/lubuntu-win10-theme).
+- *OpenBox Theme* : Thanks to [B00merang Project](https://b00merang.weebly.com/windows-10.html) for Modern flat [theme based on Win10](https://github.com/winunix/lubuntu-win10-theme).
+- *Icons Theme* : Thanks to [B00merang Project](https://b00merang.weebly.com/icons.html) for [icon theme based on material from Win10](https://github.com/winunix/lubuntu-win10-icon-theme).
+- *Cursor Theme* : Thanks fo [David Farkas (srzw)](https://www.gnome-look.org/p/999870/) for [Windows 8 cursors](https://github.com/winunix/lubuntu-win8-cursor-theme).
+- *LXQt Theme* : Thanks to [Hendra Mayendra Palembang (hendra)](https://www.pling.com/p/1319223/) for [Panel and bigger start menu](https://github.com/winunix/lubuntu-win10-qt-theme).
+- *Font* : Thanks to Debian Fonts Task Force for `DejaVu Sans` font from package `fonts-dejavu-core` on universe repository.
+- *SDDM Theme* : Thanks to [Alecsandr Александр  Chelyabinsk (BJIacTeJIuH)](https://store.kde.org/p/1250769/) for [Greeter theme](https://github.com/winunix/sddm-theme-win10).
+- Thanks to [Rener (slipttees)](https://github.com/slipttee) for first script (2016) to build remasters.
