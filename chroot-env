@@ -59,9 +59,12 @@ dpkg --add-architecture i386
 wget -qO - https://winunix.github.io/debian/public.key | sudo apt-key add -
 sudo add-apt-repository 'deb https://winunix.github.io/debian focal main'
 
-### Chrome stable repository
-wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo add-apt-repository 'deb http://dl.google.com/linux/chrome/deb/ stable main'
+### AnyDesk all repository
+wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+
+### Java ppa repository
+sudo add-apt-repository ppa:linuxuprising/java -y
 
 apt-get update >/tmp/aptlog
 
@@ -104,34 +107,98 @@ aptInstall "myspell-pt-br"
 aptInstall "mythes-pt-pt"
 aptInstall "wportuguese"
 aptInstall "wbrazilian"
-
-sudo dpkg-reconfigure locales
+dpkgReconf "locales"
 
 ### Appearance
 aptInstall "qt5-style-plugin-gtk2"
-aptInstall "lubuntu-win10-theme"
-aptInstall "lubuntu-win8-cursor-theme"
-aptInstall "lubuntu-win10-icon-theme"
-aptInstall "lubuntu-win10-qt-theme"
-aptInstall "lubuntu-win-theme-apply"
-aptInstall "sddm-theme-win10"
+aptInstall "/tmp/lubuntu-win10-theme.deb"
+aptInstall "/tmp/lubuntu-win8-cursor-theme.deb"
+aptInstall "/tmp/lubuntu-win10-icon-theme.deb"
+aptInstall "/tmp/lubuntu-win10-qt-theme.deb"
+aptInstall "/tmp/lubuntu-win-theme-apply.deb"
+aptInstall "/tmp/sddm-theme-win10.deb"
 
 ### utils
+aptInstall "gstreamer1.0-plugins-ugly"
+aptInstall "gstreamer1.0-plugins-bad"
+aptInstall "gstreamer1.0-libav"
+aptInstall "rar"
+aptInstall "unrar"
+aptInstall "p7zip"
+aptInstall "zenity"
+aptInstall "traceroute"
+aptInstall "net-tools"
+aptInstall "cups"
+aptInstall "openssh-server"
+aptInstall "libnss3-tools"
+aptInstall "apt-transport-https"
+aptInstall "libpam-mount"
+aptInstall "cifs-utils"
+aptInstall "libpam-gnome-keyring"
+aptInstall "smbclient"
+aptInstall "samba"
+aptInstall "system-config-samba"
+aptInstall "libdvd-pkg"
+dpkgReconf "libdvd-pkg"
+
+# Drivers
+aptInstall "bcmwl-kernel-source"
+
+# Accessories
 aptInstall "file-roller"
 aptInstall "galculator"
 aptInstall "xpad"
 aptInstall "gnome-screenshot"
 aptInstall "gnome-disk-utility"
 aptInstall "gucharmap"
-aptInstall "pdfshuffler"
 aptInstall "gnome-paint"
-aptInstall "audacious"
 aptInstall "cheese"
 
-aptInstall "google-chrome-stable"
-aptInstall "libdvd-pkg"
-dpkgReconf "libdvd-pkg"
+# Apps
+aptInstall "firefox"
+aptInstall "firefox-locale-br"
+aptInstall "vlc"
+aptInstall "gimp"
+aptInstall "inkscape"
+aptInstall "openshot"
+aptInstall "imagination"
+aptInstall "libreoffice"
+aptInstall "libreoffice-l10n-br"
+aptInstall "libreoffice-l10n-pt-br"
+aptInstall "openoffice.org-hyphenation"
+aptInstall "eog"
+aptInstall "flashplugin-installer"
+aptInstall "unetbootin"
+aptInstall "rdesktop"
+aptInstall "remmina"
+aptInstall "remmina-plugin-rdp"
+aptInstall "wine64"
+aptInstall "lsb"
+aptInstall "yad"
+aptInstall "python-gi"
+aptInstall "pdfshuffler"
+aptInstall "audacious"
+aptInstall "anydesk"
+aptInstall "/tmp/google-chrome-stable.deb"
+aptInstall "/tmp/visual-studio-code.deb"
 
+# aptInstall "node"
+# aptInstall "/tmp/masterPdfEditor.deb"
+# aptInstall "/tmp/libpng12-0.deb"
+# aptInstall "/tmp/wpsoffice.deb"
+# aptInstall "/tmp/wps-office-language-all.deb"
+# aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003
+# aptInstall "libgtk2.0-0:i386"
+# aptInstall "libxft2:i386"
+# aptInstall "libxt6:i386"
+# Adobe Reader 8
+# aptInstall "/tmp/adobeReader.deb"
+# aptInstall "gtk2-engines-murrine:i386"
+# aptInstall "gtk2-engines-pixbuf:i386"
+
+# Java
+echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
+aptInstall "oracle-java14-installer"
 
 ## Apport
 sed -i 's/enabled=1/enabled=0/g' /etc/default/apport

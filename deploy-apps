@@ -5,3 +5,12 @@ if [ "$hasPartner" == "" ]; then
 	sudo sed -i '5i\# Enable archive.canonical.com.'  cache/extract-cd/preseed/lubuntu.seed
 	sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
 fi
+
+echo "Deploying LookAndFeel"
+sudo cp -rf libs/lookAndFeel/*.deb disk/tmp/
+
+echo "Deploying Chrome"
+sudo cp -rf libs/chrome/*.deb disk/tmp/
+
+echo "Deploying VS Code"
+sudo cp -rf libs/vscode/*.deb disk/tmp/

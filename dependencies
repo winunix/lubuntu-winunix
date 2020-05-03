@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PJTPATH="$(pwd)"
+
 devDependency () {
 	STAT="`dpkg-query -W -f='${status}' $1`"
 	if [ "$STAT" != "install ok installed" ]; then
@@ -12,9 +14,37 @@ getFileSize () {
 	stat --printf="%s" $1
 }
 
+pjtDependency () {
+	LIBPATH="./libs/$1/"
+	LIBNAME=$2
+	mkdir $LIBPATH -p
+	cd $LIBPATH
+	if [ ! "$(getFileSize $LIBNAME)" -gt "0" ]; then
+		wget $3 -q --no-check-certificate --show-progress -O $LIBNAME
+	fi
+	if [ ! "$(getFileSize $LIBNAME)" -gt "0" ]; then
+		echo "FALHA NO DOWNLOAD!!!"
+		echo "Arquivo: $LIBNAME"
+		exit
+	fi
+	cd "$PJTPATH"
+}
+
 echo "installing dev dependencies"
 
 devDependency "wget"
 devDependency "zenity"
 devDependency "squashfs-tools"
 devDependency "xorriso"
+
+echo "download pjt dependencies"
+
+pjtDependency "lookAndFeel" "lubuntu-win10-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-theme/lubuntu-win10-theme_1.0.2_all.deb"
+pjtDependency "lookAndFeel" "lubuntu-win10-icon-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-icon-theme/lubuntu-win10-icon-theme_0.0.6_all.deb"
+pjtDependency "lookAndFeel" "lubuntu-win8-cursor-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win8-cursor-theme/lubuntu-win8-cursor-theme_0.0.2_all.deb"
+pjtDependency "lookAndFeel" "lubuntu-win10-qt-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-qt-theme/lubuntu-win10-qt-theme_0.0.1_all.deb"
+pjtDependency "lookAndFeel" "lubuntu-win-theme-apply.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win-theme-apply/lubuntu-win-theme-apply_0.0.6_all.deb"
+pjtDependency "lookAndFeel" "sddm-theme-win10.deb" "https://github.com/winunix/debian/raw/master/pool/main/s/sddm/sddm-theme-win10_0.0.1_all.deb"
+
+pjtDependency "chrome" "google-chrome-stable.deb" "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+pjtDependency "vscode" "visual-studio-code.deb" "https://go.microsoft.com/fwlink/?LinkID=760868"

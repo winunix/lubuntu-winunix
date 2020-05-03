@@ -31,9 +31,9 @@ lubuntu-winunix/
 ├── reset           <-- Remove folders and files that don't are versioned with git
 ├── cache/          <-- Temp files (Don't versioned!)
 ├── disk/           <-- Filesystem from extracted ISO disc (Don't versioned!)
+├── libs/           <-- Third-party libraries (Don't versioned!)
 
-├── modules/        <-- Bibliotecas e Apps do projeto
-└── libs/           <-- Bibliotecas de terceiros (não versionado!)
+└── modules/        <-- Bibliotecas e Apps do projeto
 ```
 
 ## Credits
