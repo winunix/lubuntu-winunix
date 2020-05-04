@@ -1,0 +1,270 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+ARG=$1
+
+function success {
+	printf "%-40.40s${GREEN}%13.13s${NC}\n" "$1" "Detected!"
+}
+
+function fail {
+	printf "%-40.40s${RED}%13.13s${NC}\n" "$1" "Not Detected!"
+	if [ "$ARG" == "-q" ]; then
+		exit
+	fi
+}
+
+function check {
+	if [ "$1" == "1" ]; then
+		success "$2"
+	else
+		fail "$2"
+	fi	
+}
+
+function hasDeb {
+	has=$(dpkg-query -W -f '${status}' $1 2>/dev/null)
+	if [ "$has" == "install ok installed" ]; then
+		check 1 $1
+	else
+		check 0 $1
+	fi
+}
+
+printf "WINUNIX CORE\n\n"
+
+# Winunix focal repository
+[ -f /etc/apt/sources.list.d/winunix-focal.list ]; winunixRep=$?
+check $((!winunixRep)) "Repository Winunix"
+
+# Anydesk all repository
+[ -f /etc/apt/sources.list.d/anydesk-stable.list ]; anydeskRep=$?
+check $((!anydeskRep)) "Repository AnyDesk"
+
+# Java ppa repository
+[ -f /etc/apt/sources.list.d/linuxuprising-ubuntu-java-focal.list ]; javaRep=$?
+check $((!javaRep)) "Repository Java"
+
+# Chrome ppa repository
+[ -f /etc/apt/sources.list.d/google-chrome.list ]; chromeRep=$?
+check $((!chromeRep)) "Repository Chrome"
+
+# Unetbootin ppa repository
+[ -f /etc/apt/sources.list.d/gezakovacs-ubuntu-ppa-bionic.list ]; unetRep=$?
+check $((!unetRep)) "Repository Unetbootin"
+
+# TTF MsCoreFonts
+AmountFonts=$(ls /usr/share/fonts/truetype/msttcorefonts/*.ttf 2>/dev/null | wc -l)
+check $((AmountFonts >= 60)) "ttf-mscorefonts-installer"
+
+hasDeb "language-pack-pt"
+hasDeb "language-pack-br"
+hasDeb "language-pack-pt-base"
+hasDeb "language-pack-br-base"
+hasDeb "language-pack-gnome-pt"
+hasDeb "language-pack-gnome-br"
+hasDeb "language-pack-gnome-pt-base"
+hasDeb "language-pack-gnome-br-base"
+hasDeb "language-pack-kde-pt"
+hasDeb "kde-l10n-pt"
+hasDeb "kde-l10n-ptbr"
+hasDeb "hyphen-pt-pt"
+hasDeb "hyphen-pt-br"
+hasDeb "hunspell-br"
+hasDeb "hunspell-pt-pt"
+hasDeb "myspell-pt-br"
+hasDeb "mythes-pt-pt"
+hasDeb "wportuguese"
+hasDeb "wbrazilian"
+hasDeb "locales"
+
+hasDeb "qt5-style-plugin-gtk2"
+hasDeb "lubuntu-win10-theme"
+hasDeb "lubuntu-win8-cursor-theme"
+hasDeb "lubuntu-win10-icon-theme"
+hasDeb "lubuntu-win10-qt-theme"
+hasDeb "lubuntu-win-theme-apply"
+hasDeb "sddm-theme-win10"
+
+# Java 12 or superior
+[ -f /usr/lib/jvm/java-12-oracle/bin/java ]; Java12Bin=$?
+[ -f /usr/lib/jvm/java-14-oracle/bin/java ]; Java14Bin=$?
+check $((!Java12Bin || !Java14Bin)) "oracle-java"
+
+hasDeb "gstreamer1.0-plugins-ugly"
+hasDeb "gstreamer1.0-plugins-bad"
+hasDeb "gstreamer1.0-libav"
+hasDeb "rar"
+hasDeb "unrar"
+hasDeb "p7zip"
+hasDeb "zenity"
+hasDeb "traceroute"
+hasDeb "net-tools"
+hasDeb "cups"
+hasDeb "openssh-server"
+hasDeb "libnss3-tools"
+hasDeb "apt-transport-https"
+hasDeb "libpam-mount"
+hasDeb "cifs-utils"
+hasDeb "libpam-gnome-keyring"
+hasDeb "smbclient"
+hasDeb "samba"
+hasDeb "libdvd-pkg"
+hasDeb "python3-smbc"
+hasDeb "mesa-utils"
+hasDeb "xdg-utils"
+hasDeb "curl"
+
+hasDeb "bcmwl-kernel-source"
+
+hasDeb "file-roller"
+hasDeb "galculator"
+hasDeb "xpad"
+hasDeb "gnome-screenshot"
+hasDeb "gnome-disk-utility"
+hasDeb "gucharmap"
+hasDeb "gnome-paint"
+hasDeb "cheese"
+hasDeb "hardinfo"
+
+hasDeb "firefox"
+hasDeb "firefox-locale-pt"
+hasDeb "firefox-locale-br"
+hasDeb "vlc"
+hasDeb "gimp"
+hasDeb "inkscape"
+hasDeb "evince"
+hasDeb "openshot"
+hasDeb "imagination"
+hasDeb "libreoffice"
+hasDeb "libreoffice-l10n-br"
+hasDeb "libreoffice-l10n-pt-br"
+hasDeb "openoffice.org-hyphenation"
+hasDeb "eog"
+
+# Flash Player for Firefox
+[ -f /usr/lib/flashplugin-installer/libflashplayer.so ]; FlvBin=$?
+check $((!FlvBin)) "flashplugin-installer"
+
+hasDeb "unetbootin"
+hasDeb "rdesktop"
+hasDeb "remmina"
+hasDeb "remmina-plugin-rdp"
+hasDeb "wine64"
+hasDeb "wine32"
+hasDeb "wine-stable"
+hasDeb "lsb"
+hasDeb "yad"
+hasDeb "python-gi"
+hasDeb "pdfshuffler"
+hasDeb "audacious"
+hasDeb "anydesk"
+
+# Google Chrome
+[ -f /opt/google/chrome/google-chrome ]; ChromeBin=$?
+[ -f /usr/share/applications/google-chrome.desktop ]; Chrome=$?
+check $((!ChromeBin && !Chrome)) "Google Chrome"
+
+hasDeb "code"
+hasDeb "master-pdf-editor"
+
+
+hasDeb "python2.7-minimal"
+hasDeb "python2.7"
+hasDeb "python-minimal"
+hasDeb "warsaw"
+hasDeb "blender"
+
+# # WinuniX RandR
+# [ -f /usr/bin/winunix-randr ]; RandRwx=$?
+# check $((!RandRwx)) "WinuniX RandR"
+
+# # WinuniX Software-center
+# [ -f /usr/software-center/main.py ]; centerDir=$?
+# check $((!centerDir)) "WinuniX Software-center"
+
+# # Mozilla Profile
+# [ -d /etc/skel/.mozilla/ ]; FireSkel=$?
+# check $((!FireSkel)) "Mozilla Profile"
+
+# # Chrome Profile
+# [ -d /etc/skel/.config/google-chrome/ ]; ChSkel=$?
+# check $((!ChSkel)) "Chrome Profile"
+
+# # Wizard PBIS
+# [ -f /opt/wizard-pbis/main.sh ]; wzPBISBin=$?
+# [ -f /usr/share/applications/wizard-pbis.desktop ]; wzPBIS=$?
+# check $((!wzPBISBin && !wzPBIS)) "Wizard PBIS"
+
+# # PBIS-Open
+# [ -f /opt/pbis/bin/domainjoin-cli ]; pbisBin=$?
+# check $((!pbisBin)) "PBIS-Open"
+
+# printf "\nWINUNIX SEDUC\n\n"
+
+# # Diario Antigo Seplag
+# [ -f /usr/share/applications/diario-seduc.desktop ]; SeducDiary=$?
+# check $((!SeducDiary)) "Diario Antigo Seplag"
+
+# # Seplag Guardiao
+# [ -f /usr/seduclegacy/seplag/firefox/firefox ]; guardBin=$?
+# [ -f /usr/share/applications/seplag-guardiao.desktop ]; guard=$?
+# check $((!guardBin && !guard)) "Seplag Guardiao"
+
+# # Sige Remoto
+# [ -f /usr/seduc/sige-rd.sh ]; sigeRmtBin=$?
+# [ -f /usr/share/applications/sige-rd.desktop ]; sigeRmt=$?
+# check $((!sigeRmtBin && !sigeRmt)) "Sige Remoto"
+
+# # Viproc Atalho
+# [ -f /usr/share/applications/seplag-viproc.desktop ]; viproc=$?
+# check $((!viproc)) "Viproc Atalho"
+
+# # Wine Prefix
+# [ -d ~/.wine/ ]; wineP=$?
+# check $((!wineP)) "Wine Prefix"
+
+# printf "\nWINUNIX EDU\n\n"
+
+# hasDeb "goldendict"
+# hasDeb "geogebra-classic"
+# hasDeb "wxmaxima"
+# hasDeb "gresistor"
+# hasDeb "step"
+# hasDeb "avogadro"
+# hasDeb "gchempaint"
+# hasDeb "gcu-bin"
+# hasDeb "gelemental"
+# hasDeb "google-earth-pro-stable"
+# hasDeb "marble-qt"
+# hasDeb "marble-maps"
+# hasDeb "kgeography"
+# hasDeb "logisim"
+# hasDeb "stellarium"
+# hasDeb "kstars"
+# hasDeb "kstars-data-extra-tycho2"
+# hasDeb "sweethome3d"
+# hasDeb "klavaro"
+# hasDeb "ktouch"
+# hasDeb "scratch"
+# hasDeb "codeblocks"
+# hasDeb "umbrello"
+# hasDeb "libqt5serialport5"
+# hasDeb "libqt5script5"
+# hasDeb "libqt5multimedia5"
+# hasDeb "librecad"
+# hasDeb "freecad-daily"
+# hasDeb "solvespace"
+
+# hasDeb "algodoo-wine"
+# hasDeb "arduino-bionic"
+# hasDeb "chemsketch-acd-wine"
+# hasDeb "circuit-simulator-bionic"
+# hasDeb "goldendict-extras-pt"
+# hasDeb "gresistor-extras-pt"
+# hasDeb "optgeo-i18n"
+# hasDeb "physion-wine"
+# hasDeb "simulide-bionic"
+# hasDeb "appsedu-menus"

@@ -29,11 +29,10 @@ lubuntu-winunix/
 ├── chroot-env      <-- Source code of virtual environment used to customize the ISO disc
 ├── pack-disk       <-- Responsable for pack the virtual environment into a new disc
 ├── reset           <-- Remove folders and files that don't are versioned with git
+├── modules/        <-- Libraries and apps from project
 ├── cache/          <-- Temp files (Don't versioned!)
 ├── disk/           <-- Filesystem from extracted ISO disc (Don't versioned!)
-├── libs/           <-- Third-party libraries (Don't versioned!)
-
-└── modules/        <-- Bibliotecas e Apps do projeto
+└── libs/           <-- Third-party libraries (Don't versioned!)
 ```
 
 ## Credits

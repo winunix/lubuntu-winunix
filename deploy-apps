@@ -14,3 +14,9 @@ sudo cp -rf libs/chrome/*.deb disk/tmp/
 
 echo "Deploying VS Code"
 sudo cp -rf libs/vscode/*.deb disk/tmp/
+
+echo "Deploying Master PDF"
+sudo cp -rf lib/masterPdf/*.deb disk/tmp/
+
+echo "Deploying Verify"
+sudo cp -rf modules/verify/verify-winunix disk/usr/bin/

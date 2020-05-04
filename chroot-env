@@ -57,7 +57,7 @@ dpkg --add-architecture i386
 
 ### WinuniX focal repository
 wget -qO - https://winunix.github.io/debian/public.key | sudo apt-key add -
-sudo add-apt-repository 'deb https://winunix.github.io/debian focal main'
+sudo echo "deb https://winunix.github.io/debian focal main" > /etc/apt/sources.list.d/winunix-focal.list
 
 ### AnyDesk all repository
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
@@ -65,6 +65,9 @@ sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anyde
 
 ### Java ppa repository
 sudo add-apt-repository ppa:linuxuprising/java -y
+
+### Unetbootin ppa repository
+sudo add-apt-repository ppa:gezakovacs/ppa -y
 
 apt-get update >/tmp/aptlog
 
@@ -118,6 +121,10 @@ aptInstall "/tmp/lubuntu-win10-qt-theme.deb"
 aptInstall "/tmp/lubuntu-win-theme-apply.deb"
 aptInstall "/tmp/sddm-theme-win10.deb"
 
+### Java
+echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
+aptInstall "oracle-java14-installer"
+
 ### utils
 aptInstall "gstreamer1.0-plugins-ugly"
 aptInstall "gstreamer1.0-plugins-bad"
@@ -137,14 +144,17 @@ aptInstall "cifs-utils"
 aptInstall "libpam-gnome-keyring"
 aptInstall "smbclient"
 aptInstall "samba"
-aptInstall "system-config-samba"
 aptInstall "libdvd-pkg"
 dpkgReconf "libdvd-pkg"
+aptInstall "python3-smbc"
+aptInstall "mesa-utils"
+aptInstall "xdg-utils"
+aptInstall "curl"
 
-# Drivers
+### Drivers
 aptInstall "bcmwl-kernel-source"
 
-# Accessories
+### Accessories
 aptInstall "file-roller"
 aptInstall "galculator"
 aptInstall "xpad"
@@ -153,13 +163,16 @@ aptInstall "gnome-disk-utility"
 aptInstall "gucharmap"
 aptInstall "gnome-paint"
 aptInstall "cheese"
+aptInstall "hardinfo"
 
-# Apps
+### Apps
 aptInstall "firefox"
+aptInstall "firefox-locale-pt"
 aptInstall "firefox-locale-br"
 aptInstall "vlc"
 aptInstall "gimp"
 aptInstall "inkscape"
+aptInstall "evince"
 aptInstall "openshot"
 aptInstall "imagination"
 aptInstall "libreoffice"
@@ -173,6 +186,8 @@ aptInstall "rdesktop"
 aptInstall "remmina"
 aptInstall "remmina-plugin-rdp"
 aptInstall "wine64"
+aptInstall "wine32"
+aptInstall "wine-stable"
 aptInstall "lsb"
 aptInstall "yad"
 aptInstall "python-gi"
@@ -181,9 +196,9 @@ aptInstall "audacious"
 aptInstall "anydesk"
 aptInstall "/tmp/google-chrome-stable.deb"
 aptInstall "/tmp/visual-studio-code.deb"
+aptInstall "/tmp/master-pdf-editor.deb"
 
 # aptInstall "node"
-# aptInstall "/tmp/masterPdfEditor.deb"
 # aptInstall "/tmp/libpng12-0.deb"
 # aptInstall "/tmp/wpsoffice.deb"
 # aptInstall "/tmp/wps-office-language-all.deb"
@@ -196,12 +211,17 @@ aptInstall "/tmp/visual-studio-code.deb"
 # aptInstall "gtk2-engines-murrine:i386"
 # aptInstall "gtk2-engines-pixbuf:i386"
 
-# Java
-echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
-aptInstall "oracle-java14-installer"
-
 ## Apport
 sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
+
+## Hardinfo icon
+cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png
+
+# EoG light theme
+sed -i "s#Exec=eog %U#Exec=env GTK_THEME='Windows 10 forLxde' eog %U#g" /usr/share/applications/eog.desktop
+
+# Check Winunix Apps
+chmod +x /usr/bin/verify-winunix
 
 ## Notifications of update
 sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
