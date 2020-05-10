@@ -49,6 +49,7 @@ aptRemove "trojita"
 aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "ark"
+aptRemove "ttf-mscorefonts-installer"
 # aptRemove "screengrab"
 rm -rf /usr/share/applications/info.desktop
 
@@ -56,18 +57,16 @@ rm -rf /usr/share/applications/info.desktop
 dpkg --add-architecture i386
 
 ### WinuniX focal repository
-wget -qO - https://winunix.github.io/debian/public.key | sudo apt-key add -
+wget -qO - "https://winunix.github.io/debian/public.key" | sudo apt-key add -
 sudo echo "deb https://winunix.github.io/debian focal main" > /etc/apt/sources.list.d/winunix-focal.list
 
 ### AnyDesk all repository
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+wget -qO - "https://keys.anydesk.com/repos/DEB-GPG-KEY" | sudo apt-key add -
 sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
 
-### Java ppa repository
-sudo add-apt-repository ppa:linuxuprising/java -y
-
-### Unetbootin ppa repository
-sudo add-apt-repository ppa:gezakovacs/ppa -y
+### Java ppa repository 'sudo add-apt-repository ppa:linuxuprising/java -y'
+wget -qO - "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1cc3d16e460a94ee17fe581cea8cacc073c3db2a" | sudo apt-key add -
+sudo echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" > /etc/apt/sources.list.d/linuxuprising-ubuntu-java-focal.list
 
 apt-get update >/tmp/aptlog
 
@@ -89,6 +88,8 @@ dpkgReconf () {
 ### TTF MS Core Fonts
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 aptInstall "ttf-mscorefonts-installer"
+echo ttf-mscorefonts-installer msttcorefonts/dldir select "/tmp/mscoref" | debconf-set-selections
+dpkgReconf "ttf-mscorefonts-installer"
 
 ### Language
 aptInstall "language-pack-pt"
@@ -100,8 +101,6 @@ aptInstall "language-pack-gnome-br"
 aptInstall "language-pack-gnome-pt-base"
 aptInstall "language-pack-gnome-br-base"
 aptInstall "language-pack-kde-pt"
-aptInstall "kde-l10n-pt"
-aptInstall "kde-l10n-ptbr"
 aptInstall "hyphen-pt-pt"
 aptInstall "hyphen-pt-br"
 aptInstall "hunspell-br"
@@ -118,8 +117,8 @@ aptInstall "/tmp/lubuntu-win10-theme.deb"
 aptInstall "/tmp/lubuntu-win8-cursor-theme.deb"
 aptInstall "/tmp/lubuntu-win10-icon-theme.deb"
 aptInstall "/tmp/lubuntu-win10-qt-theme.deb"
-aptInstall "/tmp/lubuntu-win-theme-apply.deb"
 aptInstall "/tmp/sddm-theme-win10.deb"
+aptInstall "/tmp/lubuntu-win-theme-apply.deb"
 
 ### Java
 echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
@@ -140,7 +139,6 @@ aptInstall "openssh-server"
 aptInstall "libnss3-tools"
 aptInstall "apt-transport-https"
 aptInstall "libpam-mount"
-aptInstall "cifs-utils"
 aptInstall "libpam-gnome-keyring"
 aptInstall "smbclient"
 aptInstall "samba"
@@ -181,7 +179,6 @@ aptInstall "libreoffice-l10n-pt-br"
 aptInstall "openoffice.org-hyphenation"
 aptInstall "eog"
 aptInstall "flashplugin-installer"
-aptInstall "unetbootin"
 aptInstall "rdesktop"
 aptInstall "remmina"
 aptInstall "remmina-plugin-rdp"
@@ -194,9 +191,12 @@ aptInstall "python-gi"
 aptInstall "pdfshuffler"
 aptInstall "audacious"
 aptInstall "anydesk"
+aptInstall "system-config-samba-focal"
+aptInstall "cifs-utils"
 aptInstall "/tmp/google-chrome-stable.deb"
 aptInstall "/tmp/visual-studio-code.deb"
 aptInstall "/tmp/master-pdf-editor.deb"
+aptInstall "/tmp/unetbootin.deb"
 
 # aptInstall "node"
 # aptInstall "/tmp/libpng12-0.deb"
@@ -218,7 +218,7 @@ sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png
 
 # EoG light theme
-sed -i "s#Exec=eog %U#Exec=env GTK_THEME='Windows 10 forLxde' eog %U#g" /usr/share/applications/eog.desktop
+sed -i "s#Exec=eog %U#Exec=env GTK_THEME='Windows 10 forLxde' eog %U#g" /usr/share/applications/org.gnome.eog.desktop
 
 # Check Winunix Apps
 chmod +x /usr/bin/verify-winunix

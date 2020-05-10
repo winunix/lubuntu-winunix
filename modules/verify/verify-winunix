@@ -51,10 +51,6 @@ check $((!javaRep)) "Repository Java"
 [ -f /etc/apt/sources.list.d/google-chrome.list ]; chromeRep=$?
 check $((!chromeRep)) "Repository Chrome"
 
-# Unetbootin ppa repository
-[ -f /etc/apt/sources.list.d/gezakovacs-ubuntu-ppa-bionic.list ]; unetRep=$?
-check $((!unetRep)) "Repository Unetbootin"
-
 # TTF MsCoreFonts
 AmountFonts=$(ls /usr/share/fonts/truetype/msttcorefonts/*.ttf 2>/dev/null | wc -l)
 check $((AmountFonts >= 60)) "ttf-mscorefonts-installer"
@@ -68,8 +64,6 @@ hasDeb "language-pack-gnome-br"
 hasDeb "language-pack-gnome-pt-base"
 hasDeb "language-pack-gnome-br-base"
 hasDeb "language-pack-kde-pt"
-hasDeb "kde-l10n-pt"
-hasDeb "kde-l10n-ptbr"
 hasDeb "hyphen-pt-pt"
 hasDeb "hyphen-pt-br"
 hasDeb "hunspell-br"
@@ -148,7 +142,6 @@ hasDeb "eog"
 [ -f /usr/lib/flashplugin-installer/libflashplayer.so ]; FlvBin=$?
 check $((!FlvBin)) "flashplugin-installer"
 
-hasDeb "unetbootin"
 hasDeb "rdesktop"
 hasDeb "remmina"
 hasDeb "remmina-plugin-rdp"
@@ -161,6 +154,7 @@ hasDeb "python-gi"
 hasDeb "pdfshuffler"
 hasDeb "audacious"
 hasDeb "anydesk"
+hasDeb "system-config-samba-focal"
 
 # Google Chrome
 [ -f /opt/google/chrome/google-chrome ]; ChromeBin=$?
@@ -169,11 +163,10 @@ check $((!ChromeBin && !Chrome)) "Google Chrome"
 
 hasDeb "code"
 hasDeb "master-pdf-editor"
-
+hasDeb "unetbootin-focal"
 
 hasDeb "python2.7-minimal"
 hasDeb "python2.7"
-hasDeb "python-minimal"
 hasDeb "warsaw"
 hasDeb "blender"
 
