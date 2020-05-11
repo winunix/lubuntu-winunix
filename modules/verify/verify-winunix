@@ -122,6 +122,7 @@ hasDeb "gucharmap"
 hasDeb "gnome-paint"
 hasDeb "cheese"
 hasDeb "hardinfo"
+hasDeb "gdebi"
 
 hasDeb "firefox"
 hasDeb "firefox-locale-pt"
@@ -167,8 +168,23 @@ hasDeb "unetbootin-focal"
 
 hasDeb "python2.7-minimal"
 hasDeb "python2.7"
-hasDeb "warsaw"
 hasDeb "blender"
+
+# hasDeb "warsaw"
+# hasDeb "libgtk2.0-0:i386"
+# hasDeb "libxft2:i386"
+# hasDeb "libxt6:i386"
+# hasDeb "brasero"
+# hasDeb "libpng12-0"
+# hasDeb "wps-office"
+# hasDeb "wps-office-language-all.deb"
+# hasDeb "nodejs"
+# hasDeb "proxy-linux"
+
+# 8
+# hasDeb "/tmp/adobeReader.deb"
+# hasDeb "gtk2-engines-murrine:i386"
+# hasDeb "gtk2-engines-pixbuf:i386"
 
 # # WinuniX RandR
 # [ -f /usr/bin/winunix-randr ]; RandRwx=$?
@@ -225,6 +241,7 @@ hasDeb "blender"
 # hasDeb "geogebra-classic"
 # hasDeb "wxmaxima"
 # hasDeb "gresistor"
+# hasDeb "gresistor-extra-pt"
 # hasDeb "step"
 # hasDeb "avogadro"
 # hasDeb "gchempaint"

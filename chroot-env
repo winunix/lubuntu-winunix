@@ -33,6 +33,7 @@ update-locale LANG=\"pt_BR.UTF-8\" LANGUAGE=\"pt_BR:\"
 STAT=`grep '#dns=dnsmasq' /etc/NetworkManager/NetworkManager.conf`
 if [ "$STAT" == "" ]; then
 	sed -i 's/dns=dnsmasq/#dns=dnsmasq/g' /etc/NetworkManager/NetworkManager.conf
+	sudo chmod 644 /etc/NetworkManager/NetworkManager.conf
 	service network-manager restart
 	sleep 5
 fi
@@ -49,6 +50,7 @@ aptRemove "trojita"
 aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "ark"
+aptRemove "qapt-deb-installer"
 aptRemove "ttf-mscorefonts-installer"
 # aptRemove "screengrab"
 rm -rf /usr/share/applications/info.desktop
@@ -162,6 +164,7 @@ aptInstall "gucharmap"
 aptInstall "gnome-paint"
 aptInstall "cheese"
 aptInstall "hardinfo"
+aptInstall "gdebi"
 
 ### Apps
 aptInstall "firefox"
@@ -213,19 +216,27 @@ aptInstall "/tmp/unetbootin.deb"
 
 ## Apport
 sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
+sudo chmod 644 /etc/default/apport
 
 ## Hardinfo icon
 cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png
 
-# EoG light theme
-sed -i "s#Exec=eog %U#Exec=env GTK_THEME='Windows 10 forLxde' eog %U#g" /usr/share/applications/org.gnome.eog.desktop
+## EoG light theme
+sed -i "s#Exec=eog %U#Exec=env GTK_THEME=\"Windows 10 forLxde\" eog %U#g" /usr/share/applications/org.gnome.eog.desktop
+sudo chmod 644 /usr/share/applications/org.gnome.eog.desktop
 
-# Check Winunix Apps
+## Check Winunix Apps
 chmod +x /usr/bin/verify-winunix
 
 ## Notifications of update
 sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
+sudo chmod 644 /etc/update-manager/release-upgrades
 sed -i '/APT::Periodic::Update-Package-Lists/c\APT::Periodic::Update-Package-Lists "0";' /etc/apt/apt.conf.d/10periodic
+sudo chmod 644 /etc/apt/apt.conf.d/10periodic
+
+## Services
+sudo systemctl disable anydesk.service
+sudo systemctl disable sshd.service
 
 # copying confs from firefox and chrome
 rm -rf /root/.config
@@ -233,10 +244,11 @@ rm -rf /root/.mozilla
 cp -rf /etc/skel/.config /root
 cp -rf /etc/skel/.mozilla /root
 
+apt-get upgrade -y
 apt-get autoremove -y
 apt-get autoclean -y
 
-## Cleaning chrome environment
+# Cleaning chrome environment
 rm -rf ~/.bash_history /tmp/*
 rm /var/lib/dbus/machine-id
 rm /sbin/initctl
@@ -245,7 +257,7 @@ rm -rf /root/.config
 rm -rf /root/.mozilla
 dpkg-divert --rename --remove /sbin/initctl
 
-## Unmount specials files and exiting of chroot
+# Unmount specials files and exiting of chroot
 while [ ! -z "$(ls -A /proc)" ]; do
 	umount /proc
 	umount -lf /proc
