@@ -2,6 +2,8 @@
 
 This is a fork from Lubuntu 20.04 LTS with themes and appearance of Windows System. Its for users that want migrate to a free and open source OS, but don't have technical skills.
 
+![Wallpaper](screenshot.png)
+
 ## Generating the disc
 
 1. Clone this repository.
@@ -45,4 +47,5 @@ lubuntu-winunix/
 - *LXQt Theme* : Thanks to [Hendra Mayendra Palembang (hendra)](https://www.pling.com/p/1319223/) for [Panel and bigger start menu](https://github.com/winunix/lubuntu-win10-qt-theme).
 - *Font* : Thanks to Debian Fonts Task Force for `DejaVu Sans` font from package `fonts-dejavu-core` on universe repository.
 - *SDDM Theme* : Thanks to [Alecsandr Александр  Chelyabinsk (BJIacTeJIuH)](https://store.kde.org/p/1250769/) for [Greeter theme](https://github.com/winunix/sddm-theme-win10).
+- Thanks to [Lubuntu Community](https://discourse.lubuntu.me/) for tips and tricks..
 - Thanks to [Rener (slipttees)](https://github.com/slipttee) for first script (2016) to build remasters.

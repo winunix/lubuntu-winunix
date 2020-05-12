@@ -13,7 +13,6 @@ sudo mksquashfs disk cache/extract-cd/casper/filesystem.squashfs -b 1048576
 echo "Refreshing the filesystem.size file used in installer"
 printf $(sudo du -sx --block-size=1 disk | cut -f1) | sudo tee cache/extract-cd/casper/filesystem.size
 
-echo "Remover o antigo md5sum.txt e calcular um novo"
 echo "Removing the old md5sum.txt and calculating a new"
 cd cache/extract-cd/
 sudo rm md5sum.txt

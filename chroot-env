@@ -238,6 +238,13 @@ sudo chmod 644 /etc/apt/apt.conf.d/10periodic
 sudo systemctl disable anydesk.service
 sudo systemctl disable sshd.service
 
+## Fix Libreoffice export pdf
+hasEnvVar=`grep 'SAL_VCL_QT5_USE_CAIRO' /etc/environment`
+if [ "$hasEnvVar" == "" ]; then
+	echo "SAL_VCL_QT5_USE_CAIRO=true" >> /etc/environment
+	sudo chmod 644 /etc/environment
+fi
+
 # copying confs from firefox and chrome
 rm -rf /root/.config
 rm -rf /root/.mozilla
