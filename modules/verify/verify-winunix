@@ -101,7 +101,6 @@ hasDeb "openssh-server"
 hasDeb "libnss3-tools"
 hasDeb "apt-transport-https"
 hasDeb "libpam-mount"
-hasDeb "cifs-utils"
 hasDeb "libpam-gnome-keyring"
 hasDeb "smbclient"
 hasDeb "samba"
@@ -156,6 +155,10 @@ hasDeb "pdfshuffler"
 hasDeb "audacious"
 hasDeb "anydesk"
 hasDeb "system-config-samba-focal"
+hasDeb "nodejs"
+hasDeb "npm"
+hasDeb "xserver-xorg-input-synaptics"
+hasDeb "cifs-utils"
 
 # Google Chrome
 [ -f /opt/google/chrome/google-chrome ]; ChromeBin=$?

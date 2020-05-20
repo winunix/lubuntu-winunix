@@ -52,6 +52,7 @@ aptRemove "2048-qt"
 aptRemove "ark"
 aptRemove "qapt-deb-installer"
 aptRemove "ttf-mscorefonts-installer"
+aptRemove "libreoffice-qt5"
 # aptRemove "screengrab"
 rm -rf /usr/share/applications/info.desktop
 
@@ -73,9 +74,9 @@ sudo echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" > 
 apt-get update >/tmp/aptlog
 
 ## upgrade of system
-apt-mark hold grub-*
+#apt-mark hold grub-*
 apt-get upgrade -y
-apt-mark unhold grub-*
+#apt-mark unhold grub-*
 
 ## Install apps
 aptInstall () {
@@ -195,16 +196,18 @@ aptInstall "pdfshuffler"
 aptInstall "audacious"
 aptInstall "anydesk"
 aptInstall "system-config-samba-focal"
+aptInstall "nodejs"
+aptInstall "npm"
+aptInstall "xserver-xorg-input-synaptics"
 aptInstall "cifs-utils"
+aptInstall "fonts-3rd-party"
 aptInstall "/tmp/google-chrome-stable.deb"
 aptInstall "/tmp/visual-studio-code.deb"
 aptInstall "/tmp/master-pdf-editor.deb"
 aptInstall "/tmp/unetbootin.deb"
+aptInstall "/tmp/wps-office-full.deb"
 
-# aptInstall "node"
 # aptInstall "/tmp/libpng12-0.deb"
-# aptInstall "/tmp/wpsoffice.deb"
-# aptInstall "/tmp/wps-office-language-all.deb"
 # aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003
 # aptInstall "libgtk2.0-0:i386"
 # aptInstall "libxft2:i386"
@@ -239,11 +242,11 @@ sudo systemctl disable anydesk.service
 sudo systemctl disable sshd.service
 
 ## Fix Libreoffice export pdf
-hasEnvVar=`grep 'SAL_VCL_QT5_USE_CAIRO' /etc/environment`
-if [ "$hasEnvVar" == "" ]; then
-	echo "SAL_VCL_QT5_USE_CAIRO=true" >> /etc/environment
-	sudo chmod 644 /etc/environment
-fi
+# hasEnvVar=`grep 'SAL_VCL_QT5_USE_CAIRO' /etc/environment`
+# if [ "$hasEnvVar" == "" ]; then
+# 	echo "SAL_VCL_QT5_USE_CAIRO=true" >> /etc/environment
+# 	sudo chmod 644 /etc/environment
+# fi
 
 # copying confs from firefox and chrome
 rm -rf /root/.config

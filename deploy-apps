@@ -27,3 +27,6 @@ sudo cp -rf libs/masterPdf/*.deb disk/tmp/
 
 echo "Deploying Unetbootin"
 sudo cp -rf libs/unetbootin/*.deb disk/tmp/
+
+echo "Deploying WPS Office"
+sudo cp -rf libs/wpsoffice/*.deb disk/tmp/
