@@ -151,6 +151,8 @@ aptInstall "python3-smbc"
 aptInstall "mesa-utils"
 aptInstall "xdg-utils"
 aptInstall "curl"
+aptInstall "graphicsmagick"
+aptInstall "pcmanfm-thumbnailer"
 
 ### Drivers
 aptInstall "bcmwl-kernel-source"

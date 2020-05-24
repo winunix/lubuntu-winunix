@@ -109,6 +109,8 @@ hasDeb "python3-smbc"
 hasDeb "mesa-utils"
 hasDeb "xdg-utils"
 hasDeb "curl"
+hasDeb "graphicsmagick"
+hasDeb "pcmanfm-thumbnailer"
 
 hasDeb "bcmwl-kernel-source"
 
@@ -168,6 +170,7 @@ check $((!ChromeBin && !Chrome)) "Google Chrome"
 hasDeb "code"
 hasDeb "master-pdf-editor"
 hasDeb "unetbootin-focal"
+hasDeb "wps-office-full"
 
 hasDeb "python2.7-minimal"
 hasDeb "python2.7"

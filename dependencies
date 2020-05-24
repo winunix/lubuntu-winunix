@@ -44,7 +44,7 @@ pjtDependency "lookAndFeel" "lubuntu-win10-theme.deb" "https://github.com/winuni
 pjtDependency "lookAndFeel" "lubuntu-win10-icon-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-icon-theme/lubuntu-win10-icon-theme_0.0.6_all.deb"
 pjtDependency "lookAndFeel" "lubuntu-win8-cursor-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win8-cursor-theme/lubuntu-win8-cursor-theme_0.0.2_all.deb"
 pjtDependency "lookAndFeel" "lubuntu-win10-qt-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-qt-theme/lubuntu-win10-qt-theme_0.0.1_all.deb"
-pjtDependency "lookAndFeel" "lubuntu-win-theme-apply.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win-theme-apply/lubuntu-win-theme-apply_0.0.7_all.deb"
+pjtDependency "lookAndFeel" "lubuntu-win-theme-apply.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win-theme-apply/lubuntu-win-theme-apply_0.0.9_all.deb"
 pjtDependency "lookAndFeel" "sddm-theme-win10.deb" "https://github.com/winunix/debian/raw/master/pool/main/s/sddm/sddm-theme-win10_0.0.3_all.deb"
 
 pjtDependency "mscorefonts" "andale32.exe" "http://downloads.sourceforge.net/corefonts/andale32.exe"
