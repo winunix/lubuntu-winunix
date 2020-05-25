@@ -14,7 +14,7 @@ This is a fork from Lubuntu 20.04 LTS with themes and appearance of Windows Syst
 
 ## Download the disc
 
-If you don't want to build your own disc, you can download the disc [here](#).
+If you don't want to build your own disc, you can download the disc [here](https://bit.ly/winunix20).
 
 # Style guide for development
 
