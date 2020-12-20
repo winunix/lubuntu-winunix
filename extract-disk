@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir cache -p
-ISOPATH="cache/lubuntu20-desk.iso"
+ISOPATH="cache/lubuntu-desk.iso"
 if [ ! "$(getFileSize $ISOPATH)" -gt "0" ]; then
 	ISO=`zenity --file-selection --title="Select the ISO image" 2>/dev/null`
 	echo "Copying $ISO..."

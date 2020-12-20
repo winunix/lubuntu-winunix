@@ -6,15 +6,9 @@ if [ "$hasPartner" == "" ]; then
 	sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
 fi
 
-echo "Deploying Verify"
-sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
-
 echo "Deploying mscorefonts"
 mkdir -p disk/tmp/mscoref/
 sudo cp -rf libs/mscorefonts/*.exe disk/tmp/mscoref/
-
-echo "Deploying LookAndFeel"
-sudo cp -rf libs/lookAndFeel/*.deb disk/tmp/
 
 echo "Deploying Chrome"
 sudo cp -rf libs/chrome/*.deb disk/tmp/
@@ -25,8 +19,11 @@ sudo cp -rf libs/vscode/*.deb disk/tmp/
 echo "Deploying Master PDF"
 sudo cp -rf libs/masterPdf/*.deb disk/tmp/
 
-echo "Deploying Unetbootin"
-sudo cp -rf libs/unetbootin/*.deb disk/tmp/
+# echo "Deploying Verify"
+# sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
 
-echo "Deploying WPS Office"
-sudo cp -rf libs/wpsoffice/*.deb disk/tmp/
+# echo "Deploying Unetbootin"
+# sudo cp -rf libs/unetbootin/*.deb disk/tmp/
+
+# echo "Deploying WPS Office"
+# sudo cp -rf libs/wpsoffice/*.deb disk/tmp/

@@ -40,13 +40,6 @@ devDependency "alien"
 
 echo "download pjt dependencies"
 
-pjtDependency "lookAndFeel" "lubuntu-win10-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-theme/lubuntu-win10-theme_1.0.2_all.deb"
-pjtDependency "lookAndFeel" "lubuntu-win10-icon-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-icon-theme/lubuntu-win10-icon-theme_0.0.6_all.deb"
-pjtDependency "lookAndFeel" "lubuntu-win8-cursor-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win8-cursor-theme/lubuntu-win8-cursor-theme_0.0.2_all.deb"
-pjtDependency "lookAndFeel" "lubuntu-win10-qt-theme.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win10-qt-theme/lubuntu-win10-qt-theme_0.0.1_all.deb"
-pjtDependency "lookAndFeel" "lubuntu-win-theme-apply.deb" "https://github.com/winunix/debian/raw/master/pool/main/l/lubuntu-win-theme-apply/lubuntu-win-theme-apply_0.0.9_all.deb"
-pjtDependency "lookAndFeel" "sddm-theme-win10.deb" "https://github.com/winunix/debian/raw/master/pool/main/s/sddm/sddm-theme-win10_0.0.3_all.deb"
-
 pjtDependency "mscorefonts" "andale32.exe" "http://downloads.sourceforge.net/corefonts/andale32.exe"
 pjtDependency "mscorefonts" "arial32.exe" "http://downloads.sourceforge.net/corefonts/arial32.exe"
 pjtDependency "mscorefonts" "arialb32.exe" "http://downloads.sourceforge.net/corefonts/arialb32.exe"
@@ -62,6 +55,7 @@ pjtDependency "mscorefonts" "webdin32.exe" "http://downloads.sourceforge.net/cor
 pjtDependency "chrome" "google-chrome-stable.deb" "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 pjtDependency "vscode" "visual-studio-code.deb" "https://go.microsoft.com/fwlink/?LinkID=760868"
 pjtDependency "masterPdf" "master-pdf-editor.deb" "https://code-industry.net/public/master-pdf-editor-4.3.89_qt5.amd64.deb"
-pjtDependency "unetbootin" "unetbootin.deb" "https://github.com/winunix/debian/raw/master/pool/main/u/unetbootin-focal/unetbootin-focal_677-1~focal1_amd64.deb"
 
-pjtDependency "wpsoffice" "wps-office-full.deb" "https://github.com/winunix/debian/raw/master/pool/main/w/wps-office-full/wps-office-full_11.1.0.9508_amd64.deb"
+# I'm here!
+#pjtDependency "unetbootin" "unetbootin.deb" "https://github.com/winunix/debian/raw/master/pool/main/u/unetbootin-focal/unetbootin-focal_677-1~focal1_amd64.deb"
+#pjtDependency "wpsoffice" "wps-office-full.deb" "https://github.com/winunix/debian/raw/master/pool/main/w/wps-office-full/wps-office-full_11.1.0.9508_amd64.deb"

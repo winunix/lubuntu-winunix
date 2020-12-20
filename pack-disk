@@ -18,7 +18,7 @@ cd cache/extract-cd/
 sudo rm md5sum.txt
 find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo tee md5sum.txt
 
-ISO_NAME="winunix-20-"`date +"%m.%d.%H.%M"`
+ISO_NAME="winunix-"`date +"%m.%d.%H.%M"`
 sudo xorriso -file_size_limit off
 # -compliance iso_9660_level=3
 sudo xorriso -as mkisofs -iso-level 3 -isohybrid-mbr isolinux/isohdpfx.bin -c isolinux/boot.cat -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot -isohybrid-gpt-basdat -o ../$ISO_NAME.iso .

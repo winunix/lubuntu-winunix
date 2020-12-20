@@ -43,33 +43,36 @@ aptRemove () {
 	apt remove --purge $1 -y  2>&1 >/tmp/aptlog
 }
 
-aptRemove "kcalc"
-aptRemove "qlipper"
-aptRemove "noblenote"
-aptRemove "trojita"
-aptRemove "quassel"
-aptRemove "2048-qt"
-aptRemove "ark"
-aptRemove "qapt-deb-installer"
-aptRemove "ttf-mscorefonts-installer"
-aptRemove "libreoffice-qt5"
+# aptRemove "kcalc"
+# aptRemove "qlipper"
+# aptRemove "noblenote"
+# aptRemove "trojita"
+# aptRemove "quassel"
+# aptRemove "2048-qt"
+# aptRemove "ark"
+# aptRemove "qapt-deb-installer"
+# aptRemove "ttf-mscorefonts-installer"
+# aptRemove "libreoffice-qt5"
 # aptRemove "screengrab"
-rm -rf /usr/share/applications/info.desktop
+# rm -rf /usr/share/applications/info.desktop
 
 ## Adding Repositories
 dpkg --add-architecture i386
 
+# Get Code Name
+codeName=$(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d'=' -f2)
+
 ### WinuniX focal repository
 wget -qO - "https://winunix.github.io/debian/public.key" | sudo apt-key add -
-sudo echo "deb https://winunix.github.io/debian focal main" > /etc/apt/sources.list.d/winunix-focal.list
+sudo echo "deb https://winunix.github.io/debian $codeName main" > /etc/apt/sources.list.d/winunix-$codeName.list
 
 ### AnyDesk all repository
 wget -qO - "https://keys.anydesk.com/repos/DEB-GPG-KEY" | sudo apt-key add -
 sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
 
 ### Java ppa repository 'sudo add-apt-repository ppa:linuxuprising/java -y'
-wget -qO - "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1cc3d16e460a94ee17fe581cea8cacc073c3db2a" | sudo apt-key add -
-sudo echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" > /etc/apt/sources.list.d/linuxuprising-ubuntu-java-focal.list
+# wget -qO - "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1cc3d16e460a94ee17fe581cea8cacc073c3db2a" | sudo apt-key add -
+# sudo echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" > /etc/apt/sources.list.d/linuxuprising-ubuntu-java-focal.list
 
 apt-get update >/tmp/aptlog
 
@@ -114,18 +117,24 @@ aptInstall "wportuguese"
 aptInstall "wbrazilian"
 dpkgReconf "locales"
 
-### Appearance
+### Appearance Common
+aptInstall "fonts-dejavu"
+aptInstall "lubuntu-win10-theme"
+aptInstall "lubuntu-win10-icon-theme"
+aptInstall "lubuntu-win8-cursor-theme"
+
+### Appearance LXDE
+aptInstall "lxde-win-theme-apply"
+
+### Appearance LXQt
 aptInstall "qt5-style-plugin-gtk2"
-aptInstall "/tmp/lubuntu-win10-theme.deb"
-aptInstall "/tmp/lubuntu-win8-cursor-theme.deb"
-aptInstall "/tmp/lubuntu-win10-icon-theme.deb"
-aptInstall "/tmp/lubuntu-win10-qt-theme.deb"
-aptInstall "/tmp/sddm-theme-win10.deb"
-aptInstall "/tmp/lubuntu-win-theme-apply.deb"
+aptInstall "lubuntu-win10-qt-theme"
+aptInstall "sddm-theme-win10"
+aptInstall "lubuntu-win-theme-apply"
 
 ### Java
-echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
-aptInstall "oracle-java14-installer"
+# echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
+# aptInstall "oracle-java14-installer"
 
 ### utils
 aptInstall "gstreamer1.0-plugins-ugly"
@@ -158,18 +167,19 @@ aptInstall "xsettingsd"
 
 ### Drivers
 aptInstall "bcmwl-kernel-source"
+aptInstall "xserver-xorg-input-synaptics"
 
 ### Accessories
-aptInstall "file-roller"
-aptInstall "galculator"
-aptInstall "xpad"
-aptInstall "gnome-screenshot"
-aptInstall "gnome-disk-utility"
-aptInstall "gucharmap"
-aptInstall "gnome-paint"
-aptInstall "cheese"
-aptInstall "hardinfo"
-aptInstall "gdebi"
+# aptInstall "file-roller"
+# aptInstall "galculator"
+# aptInstall "xpad"
+# aptInstall "gnome-screenshot"
+# aptInstall "gnome-disk-utility"
+# aptInstall "gucharmap"
+# aptInstall "gnome-paint"
+# aptInstall "cheese"
+# aptInstall "hardinfo"
+# aptInstall "gdebi"
 
 ### Apps
 aptInstall "firefox"
@@ -178,9 +188,9 @@ aptInstall "firefox-locale-br"
 aptInstall "vlc"
 aptInstall "gimp"
 aptInstall "inkscape"
-aptInstall "evince"
-aptInstall "openshot"
-aptInstall "imagination"
+# aptInstall "evince"
+# aptInstall "openshot"
+# aptInstall "imagination"
 aptInstall "libreoffice"
 aptInstall "libreoffice-sdbc-hsqldb"
 aptInstall "libreoffice-l10n-br"
@@ -191,26 +201,27 @@ aptInstall "flashplugin-installer"
 aptInstall "rdesktop"
 aptInstall "remmina"
 aptInstall "remmina-plugin-rdp"
-aptInstall "wine64"
-aptInstall "wine32"
-aptInstall "wine-stable"
+# aptInstall "wine64"
+# aptInstall "wine32"
+# aptInstall "wine-stable"
 aptInstall "lsb"
 aptInstall "yad"
 aptInstall "python-gi"
-aptInstall "pdfshuffler"
+#aptInstall "pdfshuffler"
+aptInstall "pdfarranger"
 aptInstall "audacious"
 aptInstall "anydesk"
-aptInstall "system-config-samba-focal"
-aptInstall "nodejs"
-aptInstall "npm"
-aptInstall "xserver-xorg-input-synaptics"
+# aptInstall "system-config-samba-focal"
+# aptInstall "nodejs"
+#aptInstall "npm"
+
 aptInstall "cifs-utils"
 aptInstall "fonts-3rd-party"
 aptInstall "/tmp/google-chrome-stable.deb"
 aptInstall "/tmp/visual-studio-code.deb"
 aptInstall "/tmp/master-pdf-editor.deb"
-aptInstall "/tmp/unetbootin.deb"
-aptInstall "/tmp/wps-office-full.deb"
+#aptInstall "/tmp/unetbootin.deb"
+#aptInstall "/tmp/wps-office-full.deb"
 
 # aptInstall "/tmp/libpng12-0.deb"
 # aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003
@@ -227,7 +238,7 @@ sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 sudo chmod 644 /etc/default/apport
 
 ## Hardinfo icon
-cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png
+#cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png
 
 ## EoG light theme
 sed -i "s#Exec=eog %U#Exec=env GTK_THEME=\"Windows 10 forLxde\" eog %U#g" /usr/share/applications/org.gnome.eog.desktop
@@ -237,10 +248,10 @@ sudo chmod 644 /usr/share/applications/org.gnome.eog.desktop
 chmod +x /usr/bin/verify-winunix
 
 ## Notifications of update
-sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
-sudo chmod 644 /etc/update-manager/release-upgrades
-sed -i '/APT::Periodic::Update-Package-Lists/c\APT::Periodic::Update-Package-Lists "0";' /etc/apt/apt.conf.d/10periodic
-sudo chmod 644 /etc/apt/apt.conf.d/10periodic
+#sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
+#sudo chmod 644 /etc/update-manager/release-upgrades
+#sed -i '/APT::Periodic::Update-Package-Lists/c\APT::Periodic::Update-Package-Lists "0";' /etc/apt/apt.conf.d/10periodic
+#sudo chmod 644 /etc/apt/apt.conf.d/10periodic
 
 ## Services
 sudo systemctl disable anydesk.service
