@@ -14,7 +14,7 @@ echo "Mounting devices"
 sudo mount --bind /dev/ disk/dev
 
 #lxterminal --command="/bin/bash -c 'watch -n2 cat disk/tmp/aptlog; /bin/bash'"
-xterm -e "/bin/bash -c 'watch -n2 cat disk/tmp/aptlog; /bin/bash'"
+xterm -e "/bin/bash -c 'watch -n2 cat disk/tmp/aptlog; /bin/bash'" &
 
 ### ENTERING IN CHROOT ENVIRONMENT
 
