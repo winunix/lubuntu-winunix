@@ -107,19 +107,16 @@ echo ttf-mscorefonts-installer msttcorefonts/dldir select "/tmp/mscoref" | debco
 dpkgReconf "ttf-mscorefonts-installer"
 
 # Language
-aptInstall "language-pack-pt"
-aptInstall "language-pack-br"
 aptInstall "language-pack-pt-base"
-aptInstall "language-pack-br-base"
-aptInstall "language-pack-gnome-pt"
-aptInstall "language-pack-gnome-br"
+aptInstall "language-pack-pt"
 aptInstall "language-pack-gnome-pt-base"
-aptInstall "language-pack-gnome-br-base"
+aptInstall "language-pack-gnome-pt"
 aptInstall "language-pack-kde-pt"
 aptInstall "hyphen-pt-pt"
 aptInstall "hyphen-pt-br"
-aptInstall "hunspell-br"
 aptInstall "hunspell-pt-pt"
+aptInstall "hunspell-pt-br"
+aptInstall "myspell-pt-pt"
 aptInstall "myspell-pt-br"
 aptInstall "mythes-pt-pt"
 aptInstall "wportuguese"
@@ -173,24 +170,20 @@ aptInstall "graphicsmagick"
 aptInstall "blueman"
 
 # Drivers
-#aptInstall "bcmwl-kernel-source"
-# aptInstall "xsettingsd"
+aptInstall "bcmwl-kernel-source"
+# aptInstall "xsettingsd" Just on 20.04
 # aptInstall "xserver-xorg-input-synaptics" Just on 20.04
 
 # Accessories
 aptInstall "xpad"
-aptInstall "gnome-screenshot"
 aptInstall "gnome-disk-utility"
-# aptInstall "gucharmap"
-# aptInstall "gnome-paint"
 aptInstall "cheese"
 aptInstall "hardinfo"
-# aptInstall "gdebi"
+aptInstall "gucharmap"
 
 # Apps
 aptInstall "firefox"
 aptInstall "firefox-locale-pt"
-aptInstall "firefox-locale-br"
 aptInstall "vlc"
 aptInstall "gimp"
 aptInstall "inkscape"
@@ -199,35 +192,39 @@ aptInstall "kdenlive"
 aptInstall "imagination"
 aptInstall "libreoffice"
 aptInstall "libreoffice-sdbc-hsqldb"
-aptInstall "libreoffice-l10n-br"
+aptInstall "libreoffice-l10n-pt"
 aptInstall "libreoffice-l10n-pt-br"
+aptInstall "libreoffice-help-pt-br"
 aptInstall "openoffice.org-hyphenation"
 aptInstall "eog"
 aptInstall "flashplugin-installer"
 aptInstall "rdesktop"
 aptInstall "remmina"
 aptInstall "remmina-plugin-rdp"
-# aptInstall "wine64"
-# aptInstall "wine32"
-# aptInstall "wine-stable"
 aptInstall "lsb"
 aptInstall "yad"
 aptInstall "python-gi"
 aptInstall "pdfshuffler"
-#aptInstall "pdfarranger"
 aptInstall "audacious"
 aptInstall "anydesk"
-# aptInstall "system-config-samba-focal"
-# aptInstall "nodejs"
-#aptInstall "npm"
-
 aptInstall "cifs-utils"
-#aptInstall "fonts-3rd-party"
+aptInstall "nodejs"
+aptInstall "npm"
 aptInstall "/tmp/google-chrome-stable.deb"
 aptInstall "/tmp/visual-studio-code.deb"
 aptInstall "/tmp/master-pdf-editor.deb"
+
+# aptInstall "gnome-screenshot"
+# aptInstall "gnome-paint"
+# aptInstall "gdebi"
+# aptInstall "system-config-samba-focal"
+#aptInstall "fonts-3rd-party"
+
 #aptInstall "/tmp/unetbootin.deb"
 #aptInstall "/tmp/wps-office-full.deb"
+# aptInstall "wine64"
+# aptInstall "wine32"
+# aptInstall "wine-stable"
 
 # aptInstall "/tmp/libpng12-0.deb"
 # aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003
@@ -238,10 +235,6 @@ aptInstall "/tmp/master-pdf-editor.deb"
 # aptInstall "/tmp/adobeReader.deb"
 # aptInstall "gtk2-engines-murrine:i386"
 # aptInstall "gtk2-engines-pixbuf:i386"
-
-# Apport
-#sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
-#sudo chmod 644 /etc/default/apport
 
 # Hardinfo icon
 cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png
@@ -255,22 +248,12 @@ fi
 sed -i "s#Exec=eog %U#Exec=env GTK_THEME=\"Windows 10 forLxde\" eog %U#g" /usr/share/applications/$EoGName.desktop
 sudo chmod 644 /usr/share/applications/$EoGName.desktop
 
-# Evince Thumbnails
-armorFile="/etc/apparmor.d/usr.bin.evince"
-hadWxFixed=$(cat $armorFile | grep "WinuniX")
-if [ "$hadWxFixed" == "" ]; then
-	NUM=$(cat $armorFile | grep 'owner /tmp/evince-thumbnailer\*/{,\*\*} rw,' -n | cut -d':' -f1)
-	sed -i $(($NUM+1))"i\ \ # WinuniX added this line" $armorFile
-	if [ "$codeName" == "bionic" ]; then
-		sed -i $(($NUM+2))"i\ \ owner /home/\*/.thumbnails/\*/\*.\* rw," $armorFile
-	else
-		sed -i $(($NUM+2))"i\ \ owner /home/\*/.cache/thumbnails/\*/\*.\* rw," $armorFile
-	fi
-	apparmor_parser -r $armorFile
-fi
-
 # Check Winunix Apps
 chmod +x /usr/bin/verify-winunix
+
+# Services
+sudo systemctl disable anydesk.service
+sudo systemctl disable sshd.service
 
 ## Notifications of update
 #sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
@@ -278,16 +261,16 @@ chmod +x /usr/bin/verify-winunix
 #sed -i '/APT::Periodic::Update-Package-Lists/c\APT::Periodic::Update-Package-Lists "0";' /etc/apt/apt.conf.d/10periodic
 #sudo chmod 644 /etc/apt/apt.conf.d/10periodic
 
-# Services
-sudo systemctl disable anydesk.service
-sudo systemctl disable sshd.service
-
 ## Fix Libreoffice export pdf
 # hasEnvVar=`grep 'SAL_VCL_QT5_USE_CAIRO' /etc/environment`
 # if [ "$hasEnvVar" == "" ]; then
 # 	echo "SAL_VCL_QT5_USE_CAIRO=true" >> /etc/environment
 # 	sudo chmod 644 /etc/environment
 # fi
+
+# Apport
+#sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
+#sudo chmod 644 /etc/default/apport
 
 # Cleaning chrome environment
 apt autoremove -y
