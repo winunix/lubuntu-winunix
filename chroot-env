@@ -129,20 +129,17 @@ aptInstall "lubuntu-win10-theme"
 aptInstall "lubuntu-win10-icon-theme"
 aptInstall "lubuntu-win8-cursor-theme"
 
-# Appearance LXDE
-aptInstall "lxde-win-theme-apply"
-
 # Appearance LXQt
 aptInstall "qt5-style-plugin-gtk2"
 aptInstall "lubuntu-win10-qt-theme"
 aptInstall "sddm-theme-win10"
-aptInstall "lubuntu-win-theme-apply"
 
 # Java
 echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
 aptInstall "oracle-java15-installer"
 
 # utils
+aptInstall "winunix-software-center"
 aptInstall "gstreamer1.0-plugins-ugly"
 aptInstall "gstreamer1.0-plugins-bad"
 aptInstall "gstreamer1.0-libav"
@@ -210,9 +207,6 @@ aptInstall "anydesk"
 aptInstall "cifs-utils"
 aptInstall "nodejs"
 aptInstall "npm"
-aptInstall "/tmp/google-chrome-stable.deb"
-aptInstall "/tmp/visual-studio-code.deb"
-aptInstall "/tmp/master-pdf-editor.deb"
 
 # aptInstall "gnome-screenshot"
 # aptInstall "gnome-paint"

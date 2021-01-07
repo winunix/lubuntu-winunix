@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$1" == "-u" ]; then
+    echo "100"
+else
+    pkexec /usr/wx-center/superuser.sh "EvinceThumbnails"
+fi

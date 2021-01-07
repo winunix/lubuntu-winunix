@@ -10,17 +10,30 @@ echo "Deploying mscorefonts"
 mkdir -p disk/tmp/mscoref/
 sudo cp -rf libs/mscorefonts/*.exe disk/tmp/mscoref/
 
-echo "Deploying Chrome"
-sudo cp -rf libs/chrome/*.deb disk/tmp/
+# aptInstall "/tmp/google-chrome-stable.deb"
+# aptInstall "/tmp/visual-studio-code.deb"
+# aptInstall "/tmp/master-pdf-editor.deb"
 
-echo "Deploying VS Code"
-sudo cp -rf libs/vscode/*.deb disk/tmp/
+#echo "Deploying Chrome"
+#sudo cp -rf libs/chrome/*.deb disk/tmp/
 
-echo "Deploying Master PDF"
-sudo cp -rf libs/masterPdf/*.deb disk/tmp/
+#echo "Deploying VS Code"
+#sudo cp -rf libs/vscode/*.deb disk/tmp/
 
-echo "Deploying Verify"
-sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
+#echo "Deploying Master PDF"
+#sudo cp -rf libs/masterPdf/*.deb disk/tmp/
+
+#echo "Deploying Verify"
+#sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
+
+echo "Deploying Themes-apply"
+CODENAME=$(cat disk/etc/lsb-release | grep DISTRIB_CODENAME | cut -d '=' -f 2)
+sudo mkdir -p -m777 disk/usr/wx-center/modules/Win10Theme/
+if [ "$CODENAME" == "bionic" ]; then
+    sudo cp -rf libs/themes-apply/lxde-win-theme-apply.deb disk/usr/wx-center/modules/Win10Theme/
+else
+    sudo cp -rf libs/themes-apply/lubuntu-win-theme-apply.deb disk/usr/wx-center/modules/Win10Theme/
+fi
 
 # echo "Deploying Unetbootin"
 # sudo cp -rf libs/unetbootin/*.deb disk/tmp/
