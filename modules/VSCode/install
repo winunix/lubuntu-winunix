@@ -3,5 +3,5 @@
 if [ "$1" == "-u" ]; then
     echo "100"
 else
-    pkexec /usr/wx-center/superuser.sh "Chrome"
+    pkexec /usr/wx-center/superuser.sh "VSCode"
 fi

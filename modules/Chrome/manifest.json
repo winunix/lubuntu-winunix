@@ -1,4 +1,5 @@
 {
-	"name": "EvinceThumbnails",
-	"description": "Habilitar miniaturas de PDF usando o Evince"
+	"name": "Chrome",
+	"description": "Instalar Navegador Google Chrome",
+	"pulse": "true"
 }

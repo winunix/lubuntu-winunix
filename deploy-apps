@@ -10,18 +10,20 @@ echo "Deploying mscorefonts"
 mkdir -p disk/tmp/mscoref/
 sudo cp -rf libs/mscorefonts/*.exe disk/tmp/mscoref/
 
-# aptInstall "/tmp/google-chrome-stable.deb"
-# aptInstall "/tmp/visual-studio-code.deb"
-# aptInstall "/tmp/master-pdf-editor.deb"
+echo "Deploying Chrome"
+sudo mkdir -p -m777 disk/usr/wx-center/modules/Chrome/
+sudo cp -rf libs/chrome/google-chrome-stable.deb disk/usr/wx-center/modules/Chrome/
+sudo cp -rf modules/Chrome/* disk/usr/wx-center/modules/Chrome/
 
-#echo "Deploying Chrome"
-#sudo cp -rf libs/chrome/*.deb disk/tmp/
+echo "Deploying VS Code"
+sudo mkdir -p -m777 disk/usr/wx-center/modules/VSCode/
+sudo cp -rf libs/vscode/visual-studio-code.deb disk/usr/wx-center/modules/VSCode/
+sudo cp -rf modules/VSCode/* disk/usr/wx-center/modules/VSCode/
 
-#echo "Deploying VS Code"
-#sudo cp -rf libs/vscode/*.deb disk/tmp/
-
-#echo "Deploying Master PDF"
-#sudo cp -rf libs/masterPdf/*.deb disk/tmp/
+echo "Deploying Master PDF"
+sudo mkdir -p -m777 disk/usr/wx-center/modules/MasterPDF/
+sudo cp -rf libs/masterPdf/master-pdf-editor.deb disk/usr/wx-center/modules/MasterPDF/
+sudo cp -rf modules/MasterPDF/* disk/usr/wx-center/modules/MasterPDF/
 
 #echo "Deploying Verify"
 #sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
