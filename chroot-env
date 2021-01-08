@@ -146,6 +146,7 @@ aptInstall "gstreamer1.0-libav"
 aptInstall "rar"
 aptInstall "unrar"
 aptInstall "p7zip"
+aptInstall "p7zip-full"
 aptInstall "zenity"
 aptInstall "traceroute"
 aptInstall "net-tools"
@@ -207,18 +208,20 @@ aptInstall "anydesk"
 aptInstall "cifs-utils"
 aptInstall "nodejs"
 aptInstall "npm"
+aptInstall "system-config-samba-wx"
+aptInstall "fonts-3rd-party"
 
-# aptInstall "gnome-screenshot"
-# aptInstall "gnome-paint"
-# aptInstall "gdebi"
-# aptInstall "system-config-samba-focal"
-#aptInstall "fonts-3rd-party"
+# Deps
+aptInstall "extlinux"
+aptInstall "libaudio2"
+aptInstall "syslinux"
+aptInstall "libu2f-udev"
+aptInstall "libqt4-declarative"
 
-#aptInstall "/tmp/unetbootin.deb"
-#aptInstall "/tmp/wps-office-full.deb"
-# aptInstall "wine64"
-# aptInstall "wine32"
-# aptInstall "wine-stable"
+# Wine
+aptInstall "wine64"
+aptInstall "wine32"
+aptInstall "wine-stable"
 
 # aptInstall "/tmp/libpng12-0.deb"
 # aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003
@@ -249,11 +252,13 @@ chmod +x /usr/bin/verify-winunix
 sudo systemctl disable anydesk.service
 sudo systemctl disable sshd.service
 
-## Notifications of update
-#sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
-#sudo chmod 644 /etc/update-manager/release-upgrades
-#sed -i '/APT::Periodic::Update-Package-Lists/c\APT::Periodic::Update-Package-Lists "0";' /etc/apt/apt.conf.d/10periodic
-#sudo chmod 644 /etc/apt/apt.conf.d/10periodic
+# Notifications of update
+if [ "$codeName" == "bionic" ]; then
+	sed -i '/Prompt=/c\Prompt=never' /etc/update-manager/release-upgrades
+	sudo chmod 644 /etc/update-manager/release-upgrades
+	sed -i '/APT::Periodic::Update-Package-Lists/c\APT::Periodic::Update-Package-Lists "0";' /etc/apt/apt.conf.d/10periodic
+	sudo chmod 644 /etc/apt/apt.conf.d/10periodic
+fi
 
 ## Fix Libreoffice export pdf
 # hasEnvVar=`grep 'SAL_VCL_QT5_USE_CAIRO' /etc/environment`

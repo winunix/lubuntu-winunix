@@ -6,6 +6,8 @@
 # 	sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
 # fi
 
+CODENAME=$(cat disk/etc/lsb-release | grep DISTRIB_CODENAME | cut -d '=' -f 2)
+
 echo "Deploying mscorefonts"
 mkdir -p disk/tmp/mscoref/
 sudo cp -rf libs/mscorefonts/*.exe disk/tmp/mscoref/
@@ -25,11 +27,7 @@ sudo mkdir -p -m777 disk/usr/wx-center/modules/MasterPDF/
 sudo cp -rf libs/masterPdf/master-pdf-editor.deb disk/usr/wx-center/modules/MasterPDF/
 sudo cp -rf modules/MasterPDF/* disk/usr/wx-center/modules/MasterPDF/
 
-#echo "Deploying Verify"
-#sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
-
 echo "Deploying Themes-apply"
-CODENAME=$(cat disk/etc/lsb-release | grep DISTRIB_CODENAME | cut -d '=' -f 2)
 sudo mkdir -p -m777 disk/usr/wx-center/modules/Win10Theme/
 if [ "$CODENAME" == "bionic" ]; then
     sudo cp -rf libs/themes-apply/lxde-win-theme-apply.deb disk/usr/wx-center/modules/Win10Theme/
@@ -37,8 +35,14 @@ else
     sudo cp -rf libs/themes-apply/lubuntu-win-theme-apply.deb disk/usr/wx-center/modules/Win10Theme/
 fi
 
-# echo "Deploying Unetbootin"
-# sudo cp -rf libs/unetbootin/*.deb disk/tmp/
+echo "Deploying Unetbootin"
+sudo mkdir -p -m777 disk/usr/wx-center/modules/Unetbootin/
+if [ "$CODENAME" == "bionic" ]; then
+    sudo cp -rf libs/unetbootin/unetbootin-bionic.deb disk/usr/wx-center/modules/Unetbootin/
+else
+    sudo cp -rf libs/unetbootin/unetbootin-focal.deb disk/usr/wx-center/modules/Unetbootin/
+fi
+sudo cp -rf modules/Unetbootin/* disk/usr/wx-center/modules/Unetbootin/
 
-# echo "Deploying WPS Office"
-# sudo cp -rf libs/wpsoffice/*.deb disk/tmp/
+echo "Deploying Verify"
+sudo cp -rf modules/verify/verify-winunix disk/usr/bin/
