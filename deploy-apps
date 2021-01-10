@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# hasPartner=$(grep "apt-setup/partner" cache/extract-cd/preseed/lubuntu.seed)
-# if [ "$hasPartner" == "" ]; then
-# 	sudo sed -i '5i\# Enable archive.canonical.com.'  cache/extract-cd/preseed/lubuntu.seed
-# 	sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
-# fi
-
 CODENAME=$(cat disk/etc/lsb-release | grep DISTRIB_CODENAME | cut -d '=' -f 2)
+
+hasPartner=$(grep "apt-setup/partner" cache/extract-cd/preseed/lubuntu.seed)
+if [ "$hasPartner" == "" ]; then
+    sudo sed -i '5i\# Enable archive.canonical.com.'  cache/extract-cd/preseed/lubuntu.seed
+    sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
+fi
 
 echo "Deploying mscorefonts"
 mkdir -p disk/tmp/mscoref/

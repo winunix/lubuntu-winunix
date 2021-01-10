@@ -62,9 +62,8 @@ aptRemove "trojita"
 aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "libreoffice-qt5"
+aptRemove "qpdfview"
 rm -rf /usr/share/applications/info.desktop
-# aptRemove "qapt-deb-installer"
-# aptRemove "ttf-mscorefonts-installer"
 
 # Adding Repositories
 dpkg --add-architecture i386
