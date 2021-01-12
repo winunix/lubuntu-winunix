@@ -35,17 +35,19 @@ function hasDeb {
 
 printf "WINUNIX CORE\n\n"
 
-# Winunix focal repository
-[ -f /etc/apt/sources.list.d/winunix-focal.list ]; winunixRep=$?
-check $((!winunixRep)) "Repository Winunix"
+# Winunix repository
+[ -f /etc/apt/sources.list.d/winunix-focal.list ]; winunixRep20=$?
+[ -f /etc/apt/sources.list.d/winunix-bionic.list ]; winunixRep18=$?
+check $((!winunixRep20 || !winunixRep18)) "Repository Winunix"
 
 # Anydesk all repository
 [ -f /etc/apt/sources.list.d/anydesk-stable.list ]; anydeskRep=$?
 check $((!anydeskRep)) "Repository AnyDesk"
 
 # Java ppa repository
-[ -f /etc/apt/sources.list.d/linuxuprising-ubuntu-java-focal.list ]; javaRep=$?
-check $((!javaRep)) "Repository Java"
+[ -f /etc/apt/sources.list.d/linuxuprising-ubuntu-java-focal.list ]; javaRep20=$?
+[ -f /etc/apt/sources.list.d/linuxuprising-ubuntu-java-bionic.list ]; javaRep18=$?
+check $((!javaRep20 || !javaRep18)) "Repository Java"
 
 # Chrome ppa repository
 [ -f /etc/apt/sources.list.d/google-chrome.list ]; chromeRep=$?
@@ -55,18 +57,14 @@ check $((!chromeRep)) "Repository Chrome"
 AmountFonts=$(ls /usr/share/fonts/truetype/msttcorefonts/*.ttf 2>/dev/null | wc -l)
 check $((AmountFonts >= 60)) "ttf-mscorefonts-installer"
 
-hasDeb "language-pack-pt"
-hasDeb "language-pack-br"
 hasDeb "language-pack-pt-base"
-hasDeb "language-pack-br-base"
-hasDeb "language-pack-gnome-pt"
-hasDeb "language-pack-gnome-br"
+hasDeb "language-pack-pt"
 hasDeb "language-pack-gnome-pt-base"
-hasDeb "language-pack-gnome-br-base"
+hasDeb "language-pack-gnome-pt"
 hasDeb "language-pack-kde-pt"
 hasDeb "hyphen-pt-pt"
 hasDeb "hyphen-pt-br"
-hasDeb "hunspell-br"
+hasDeb "hunspell-pt-br"
 hasDeb "hunspell-pt-pt"
 hasDeb "myspell-pt-br"
 hasDeb "mythes-pt-pt"
@@ -74,25 +72,30 @@ hasDeb "wportuguese"
 hasDeb "wbrazilian"
 hasDeb "locales"
 
-hasDeb "qt5-style-plugin-gtk2"
+hasDeb "fonts-dejavu"
 hasDeb "lubuntu-win10-theme"
-hasDeb "lubuntu-win8-cursor-theme"
 hasDeb "lubuntu-win10-icon-theme"
+hasDeb "lubuntu-win8-cursor-theme"
+hasDeb "qt5-style-plugin-gtk2"
 hasDeb "lubuntu-win10-qt-theme"
-hasDeb "lubuntu-win-theme-apply"
 hasDeb "sddm-theme-win10"
 
-# Java 12 or superior
-[ -f /usr/lib/jvm/java-12-oracle/bin/java ]; Java12Bin=$?
-[ -f /usr/lib/jvm/java-14-oracle/bin/java ]; Java14Bin=$?
-check $((!Java12Bin || !Java14Bin)) "oracle-java"
+hasDeb "lubuntu-win-theme-apply"
+hasDeb "lxde-win-theme-apply"
 
+# Java 12 or superior
+[ -f /usr/lib/jvm/java-15-oracle/bin/java ]; Java15Bin=$?
+[ -f /usr/lib/jvm/java-14-oracle/bin/java ]; Java14Bin=$?
+check $((!Java15Bin || !Java14Bin)) "oracle-java"
+
+hasDeb "winunix-software-center"
+hasDeb "proxy-linux"
 hasDeb "gstreamer1.0-plugins-ugly"
 hasDeb "gstreamer1.0-plugins-bad"
 hasDeb "gstreamer1.0-libav"
 hasDeb "rar"
 hasDeb "unrar"
-hasDeb "p7zip"
+hasDeb "p7zip-full"
 hasDeb "zenity"
 hasDeb "traceroute"
 hasDeb "net-tools"
@@ -110,35 +113,27 @@ hasDeb "mesa-utils"
 hasDeb "xdg-utils"
 hasDeb "curl"
 hasDeb "graphicsmagick"
-hasDeb "pcmanfm-thumbnailer"
 hasDeb "blueman"
-hasDeb "xsettingsd"
 
 hasDeb "bcmwl-kernel-source"
 
-hasDeb "file-roller"
-hasDeb "galculator"
 hasDeb "xpad"
-hasDeb "gnome-screenshot"
 hasDeb "gnome-disk-utility"
-hasDeb "gucharmap"
-hasDeb "gnome-paint"
 hasDeb "cheese"
 hasDeb "hardinfo"
-hasDeb "gdebi"
+hasDeb "gucharmap"
 
 hasDeb "firefox"
 hasDeb "firefox-locale-pt"
-hasDeb "firefox-locale-br"
 hasDeb "vlc"
 hasDeb "gimp"
 hasDeb "inkscape"
 hasDeb "evince"
-hasDeb "openshot"
+hasDeb "kdenlive"
 hasDeb "imagination"
 hasDeb "libreoffice"
 hasDeb "libreoffice-sdbc-hsqldb"
-hasDeb "libreoffice-l10n-br"
+hasDeb "libreoffice-l10n-pt"
 hasDeb "libreoffice-l10n-pt-br"
 hasDeb "openoffice.org-hyphenation"
 hasDeb "eog"
@@ -150,34 +145,36 @@ check $((!FlvBin)) "flashplugin-installer"
 hasDeb "rdesktop"
 hasDeb "remmina"
 hasDeb "remmina-plugin-rdp"
-hasDeb "wine64"
-hasDeb "wine32"
-hasDeb "wine-stable"
 hasDeb "lsb"
 hasDeb "yad"
 hasDeb "python-gi"
 hasDeb "pdfshuffler"
 hasDeb "audacious"
 hasDeb "anydesk"
-hasDeb "system-config-samba-focal"
+hasDeb "cifs-utils"
 hasDeb "nodejs"
 hasDeb "npm"
-hasDeb "xserver-xorg-input-synaptics"
-hasDeb "cifs-utils"
+hasDeb "system-config-samba-wx"
+hasDeb "fonts-3rd-party"
+
+hasDeb "wine64"
+hasDeb "wine32"
+hasDeb "wine-stable"
 
 # Google Chrome
 [ -f /opt/google/chrome/google-chrome ]; ChromeBin=$?
 [ -f /usr/share/applications/google-chrome.desktop ]; Chrome=$?
 check $((!ChromeBin && !Chrome)) "Google Chrome"
 
+# Unetbootin
+[ -f /usr/bin/unetbootin ]; Unetb=$?
+check $((!Unetb)) "unetbootin"
+
 hasDeb "code"
 hasDeb "master-pdf-editor"
-hasDeb "unetbootin-focal"
-hasDeb "wps-office-full"
 
 hasDeb "python2.7-minimal"
 hasDeb "python2.7"
-hasDeb "blender"
 
 # hasDeb "warsaw"
 # hasDeb "libgtk2.0-0:i386"
