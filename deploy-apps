@@ -44,5 +44,9 @@ else
 fi
 sudo cp -rf modules/Unetbootin/* disk/usr/wx-center/modules/Unetbootin/
 
+echo "Deploying ProxyLinux"
+sudo mkdir -p -m777 disk/usr/wx-center/modules/ProxyLinux/
+sudo cp -rf modules/ProxyLinux/* disk/usr/wx-center/modules/ProxyLinux/
+
 echo "Deploying Verify"
 sudo cp -rf modules/verify/verify-winunix disk/usr/bin/

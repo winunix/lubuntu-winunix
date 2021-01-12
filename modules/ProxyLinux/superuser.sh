@@ -1,0 +1,1 @@
+apt remove --purge proxy-linux -y 2>&1 >>/tmp/log$(date '+%Y%m%d.%H%M%S')

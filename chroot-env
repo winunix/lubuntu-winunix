@@ -139,6 +139,7 @@ aptInstall "oracle-java15-installer"
 
 # utils
 aptInstall "winunix-software-center"
+aptInstall "proxy-linux"
 aptInstall "gstreamer1.0-plugins-ugly"
 aptInstall "gstreamer1.0-plugins-bad"
 aptInstall "gstreamer1.0-libav"
