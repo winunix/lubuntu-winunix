@@ -217,6 +217,7 @@ aptInstall "libaudio2"
 aptInstall "syslinux"
 aptInstall "libu2f-udev"
 aptInstall "libqt4-declarative"
+aptInstall "grub-efi"
 
 # Wine
 aptInstall "wine64"
@@ -232,6 +233,10 @@ aptInstall "wine-stable"
 # aptInstall "/tmp/adobeReader.deb"
 # aptInstall "gtk2-engines-murrine:i386"
 # aptInstall "gtk2-engines-pixbuf:i386"
+
+# Remove default profile
+rm -rf /usr/wx-center/profiles/Administrativo.csv
+rm -rf /usr/wx-center/profiles/Laboratorio.csv
 
 # Hardinfo icon
 cp -f /usr/share/icons/win10-icons/48x48/devices/audio-card.png /usr/share/hardinfo/pixmaps/logo.png

@@ -7,6 +7,7 @@ if [ "$hasPartner" == "" ]; then
     sudo sed -i '5i\# Enable archive.canonical.com.'  cache/extract-cd/preseed/lubuntu.seed
     sudo sed -i '6i\d-i     apt-setup/partner   boolean true'  cache/extract-cd/preseed/lubuntu.seed
 fi
+sudo chmod +r cache/extract-cd/preseed/lubuntu.seed
 
 echo "Deploying mscorefonts"
 mkdir -p disk/tmp/mscoref/
@@ -49,6 +50,7 @@ sudo mkdir -p -m777 disk/usr/wx-center/modules/ProxyLinux/
 sudo cp -rf modules/ProxyLinux/* disk/usr/wx-center/modules/ProxyLinux/
 
 echo "Deploying Profiles"
+sudo mkdir -p -m777 disk/usr/wx-center/profiles/
 sudo rm -rf disk/usr/wx-center/profiles/*
 sudo cp -rf modules/profiles/* disk/usr/wx-center/profiles/
 
