@@ -280,12 +280,12 @@ fi
 apt autoremove -y
 apt autoclean -y
 rm -rf ~/.bash_history /tmp/*
-rm /var/lib/dbus/machine-id
-rm /sbin/initctl
-rm /root/.wgetrc
+rm -rf /var/lib/dbus/machine-id
+rm -rf /sbin/initctl
+rm -rf /root/.wgetrc
 rm -rf /root/.config
-rm -rf /root/.mozilla
 rm -rf /var/crash/*
+rm -rf /root/.mozilla
 dpkg-divert --rename --remove /sbin/initctl
 
 # Unmount specials files and exiting of chroot
