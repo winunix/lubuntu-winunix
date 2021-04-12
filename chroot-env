@@ -105,6 +105,10 @@ aptInstall "ttf-mscorefonts-installer"
 echo ttf-mscorefonts-installer msttcorefonts/dldir select "/tmp/mscoref" | debconf-set-selections
 dpkgReconf "ttf-mscorefonts-installer"
 
+# EFI Deps
+aptInstall "grub-efi-amd64-signed"
+# aptInstall "grub-efi"
+
 # Language
 aptInstall "language-pack-pt-base"
 aptInstall "language-pack-pt"
@@ -217,7 +221,6 @@ aptInstall "libaudio2"
 aptInstall "syslinux"
 aptInstall "libu2f-udev"
 aptInstall "libqt4-declarative"
-aptInstall "grub-efi"
 
 # Wine
 aptInstall "wine64"
