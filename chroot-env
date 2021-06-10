@@ -63,6 +63,7 @@ aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "libreoffice-qt5"
 aptRemove "qpdfview"
+aptRemove "software-properties-qt"
 rm -rf /usr/share/applications/info.desktop
 
 # Adding Repositories
@@ -139,7 +140,7 @@ aptInstall "sddm-theme-win10"
 
 # Java
 echo debconf shared/accepted-oracle-license-v1-2 select true | sudo debconf-set-selections
-aptInstall "oracle-java15-installer"
+aptInstall "oracle-java16-installer"
 
 # utils
 aptInstall "winunix-software-center"
@@ -170,6 +171,7 @@ aptInstall "xdg-utils"
 aptInstall "curl"
 aptInstall "graphicsmagick"
 aptInstall "blueman"
+aptInstall "software-properties-gtk"
 
 # Drivers
 aptInstall "bcmwl-kernel-source"
