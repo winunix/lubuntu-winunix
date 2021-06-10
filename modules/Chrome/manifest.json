@@ -1,5 +1,6 @@
 {
 	"name": "Chrome",
 	"description": "Instalar Navegador Google Chrome",
+	"license": "/usr/wx-center/modules/Chrome/license.txt",
 	"pulse": "true"
 }
