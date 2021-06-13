@@ -63,8 +63,8 @@ aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "libreoffice-qt5"
 aptRemove "qpdfview"
-aptRemove "software-properties-qt"
-rm -rf /usr/share/applications/info.desktop
+# aptRemove "software-properties-qt"
+# rm -rf /usr/share/applications/info.desktop
 
 # Adding Repositories
 dpkg --add-architecture i386
@@ -229,6 +229,8 @@ aptInstall "libqt4-declarative"
 aptInstall "wine64"
 aptInstall "wine32"
 aptInstall "wine-stable"
+
+aptInstall "winunix-language-pt-br"
 
 # aptInstall "/tmp/libpng12-0.deb"
 # aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003
