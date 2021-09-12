@@ -84,6 +84,11 @@ sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anyde
 wget -qO - "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1cc3d16e460a94ee17fe581cea8cacc073c3db2a" | sudo apt-key add -
 sudo echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu $codeName main" > /etc/apt/sources.list.d/linuxuprising-ubuntu-java-$codeName.list
 
+# Libreoffice 6.4 repository
+if [ "$codeName" == "bionic" ]; then
+	sudo add-apt-repository ppa:libreoffice/libreoffice-6-4
+fi
+
 ## upgrade of system
 apt update >/tmp/aptlog
 #apt-mark hold grub-*
@@ -146,6 +151,7 @@ aptInstall "oracle-java16-installer"
 # utils
 aptInstall "winunix-software-center"
 aptInstall "proxy-linux"
+aptInstall "lxreset"
 aptInstall "gstreamer1.0-plugins-ugly"
 aptInstall "gstreamer1.0-plugins-bad"
 aptInstall "gstreamer1.0-libav"
@@ -230,7 +236,14 @@ aptInstall "wine64"
 aptInstall "wine32"
 aptInstall "wine-stable"
 
-aptInstall "winunix-language-pt-br"
+if [ "$codeName" == "bionic" ]; then
+	aptInstall "gnome-screenshot"
+	aptInstall "winunix-randr"
+fi
+
+if [ "$codeName" == "focal" ]; then
+	aptInstall "winunix-language-pt-br"
+fi
 
 # aptInstall "/tmp/libpng12-0.deb"
 # aptInstall "/tmp/rdesktop.deb" # usando xenial pois atual tem bug no winServer2003

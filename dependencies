@@ -52,8 +52,8 @@ pjtDependency "mscorefonts" "trebuc32.exe" "http://downloads.sourceforge.net/cor
 pjtDependency "mscorefonts" "verdan32.exe" "http://downloads.sourceforge.net/corefonts/verdan32.exe"
 pjtDependency "mscorefonts" "webdin32.exe" "http://downloads.sourceforge.net/corefonts/webdin32.exe"
 
-pjtDependency "themes-apply" "lxde-win-theme-apply.deb" "https://github.com/winunix/debian/blob/master/pool/main/l/lxde-win-theme-apply/lxde-win-theme-apply_0.0.4_all.deb?raw=true"
-pjtDependency "themes-apply" "lubuntu-win-theme-apply.deb" "https://github.com/winunix/debian/blob/master/pool/main/l/lubuntu-win-theme-apply/lubuntu-win-theme-apply_0.1.2_all.deb?raw=true"
+pjtDependency "themes-apply" "lxde-win-theme-apply.deb" "https://github.com/winunix/debian/blob/master/pool/main/l/lxde-win-theme-apply/lxde-win-theme-apply_0.0.5_all.deb?raw=true"
+pjtDependency "themes-apply" "lubuntu-win-theme-apply.deb" "https://github.com/winunix/debian/blob/master/pool/main/l/lubuntu-win-theme-apply/lubuntu-win-theme-apply_0.1.4_all.deb?raw=true"
 
 pjtDependency "chrome" "google-chrome-stable.deb" "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 pjtDependency "vscode" "visual-studio-code.deb" "https://go.microsoft.com/fwlink/?LinkID=760868"
