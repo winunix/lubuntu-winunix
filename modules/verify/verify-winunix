@@ -84,9 +84,11 @@ hasDeb "lubuntu-win-theme-apply"
 hasDeb "lxde-win-theme-apply"
 
 # Java 12 or superior
+[ -f /usr/lib/jvm/java-17-oracle/bin/java ]; Java17Bin=$?
+[ -f /usr/lib/jvm/java-16-oracle/bin/java ]; Java16Bin=$?
 [ -f /usr/lib/jvm/java-15-oracle/bin/java ]; Java15Bin=$?
 [ -f /usr/lib/jvm/java-14-oracle/bin/java ]; Java14Bin=$?
-check $((!Java15Bin || !Java14Bin)) "oracle-java"
+check $((!Java17Bin || !Java16Bin || !Java15Bin || !Java14Bin)) "oracle-java"
 
 hasDeb "winunix-software-center"
 hasDeb "proxy-linux"
@@ -139,8 +141,8 @@ hasDeb "openoffice.org-hyphenation"
 hasDeb "eog"
 
 # Flash Player for Firefox
-[ -f /usr/lib/flashplugin-installer/libflashplayer.so ]; FlvBin=$?
-check $((!FlvBin)) "flashplugin-installer"
+[ -f /usr/lib/flashplayer-mozilla/libflashplayer.so ]; FlvBin=$?
+check $((!FlvBin)) "flashplayer-mozilla"
 
 hasDeb "rdesktop"
 hasDeb "remmina"
