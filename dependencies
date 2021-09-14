@@ -60,3 +60,4 @@ pjtDependency "vscode" "visual-studio-code.deb" "https://go.microsoft.com/fwlink
 pjtDependency "masterPdf" "master-pdf-editor.deb" "https://code-industry.net/public/master-pdf-editor-4.3.89_qt5.amd64.deb"
 pjtDependency "unetbootin" "unetbootin-bionic.deb" "https://launchpad.net/~gezakovacs/+archive/ubuntu/ppa/+build/19439868/+files/unetbootin_681-1~bionic1_amd64.deb"
 pjtDependency "unetbootin" "unetbootin-focal.deb" "https://github.com/winunix/debian/raw/master/pool/main/u/unetbootin-focal/unetbootin-focal_677-1~focal1_amd64.deb"
+pjtDependency "appsedu" "appsedu-menus.deb" "https://github.com/winunix/debian/raw/master/pool/main/a/appsedu-menus/appsedu-menus_0.5.8_all.deb"
