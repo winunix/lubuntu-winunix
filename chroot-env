@@ -63,6 +63,7 @@ aptRemove "quassel"
 aptRemove "2048-qt"
 aptRemove "libreoffice-qt5"
 aptRemove "qpdfview"
+aptRemove "ark"
 # aptRemove "software-properties-qt"
 # rm -rf /usr/share/applications/info.desktop
 
@@ -194,6 +195,7 @@ aptInstall "hardinfo"
 aptInstall "gucharmap"
 
 # Apps
+aptInstall "file-roller"
 aptInstall "firefox"
 aptInstall "firefox-locale-pt"
 aptInstall "vlc"
