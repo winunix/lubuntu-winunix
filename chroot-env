@@ -226,6 +226,7 @@ aptInstall "nodejs"
 aptInstall "npm"
 aptInstall "system-config-samba-wx"
 aptInstall "fonts-3rd-party"
+aptInstall "youtube-dl-full"
 
 # Deps
 aptInstall "extlinux"
